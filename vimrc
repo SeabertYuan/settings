@@ -74,6 +74,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'junegunn/fzf.vim'
 	Plug 'mg979/vim-visual-multi'
 	Plug 'lervag/vimtex'
+	Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'}
 call plug#end()
 
 " whitespace "
@@ -122,10 +123,19 @@ autocmd FileType cpp nnoremap <leader>rm :!g++ -g --std=c++17 % -o %:r<CR>
 autocmd FileType cpp nnoremap <leader>rr :!./%:r<CR>
 autocmd FileType cpp nnoremap <leader>rt    :!for f in %:r.*.test; do echo "TEST: $f"; ./%:r < $f; done<CR>
 
+" completion with coc "
+inoremap <silent><expr> <TAB>
+			\ pumvisible() ? "\<C-n>" :
+			\ <SID>check_back_space() ? "\<TAB>" :
+			\ coc#refresh()
+inoremap<expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+
 " templates "
 if has("autocmd")
 	augroup templates
 		autocmd BufNewFile *.cpp 0r ~/.vim/templates/skeleton.cpp
 		autocmd BufNewFile *.java 0r ~/.vim/templates/skeleton.java
+		autocmd BufNewFile *.html 0r ~/.vim/templates/skeleton.html
+		autocmd BufNewFile style.css 0r ~/.vim/templates/style.css
 	augroup END
 endif
