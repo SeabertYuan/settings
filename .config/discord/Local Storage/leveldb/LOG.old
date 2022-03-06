@@ -1,0 +1,5 @@
+2022/03/06-10:00:49.667 6f57 Reusing MANIFEST /home/seabert/.config/discord/Local Storage/leveldb/MANIFEST-000001
+2022/03/06-10:00:49.669 6f57 Recovering log #30
+2022/03/06-10:00:49.670 6f57 Level-0 table #33: started
+2022/03/06-10:00:49.685 6f57 Level-0 table #33: 374494 bytes OK
+2022/03/06-10:00:49.689 6f57 Delete type=0 #30
