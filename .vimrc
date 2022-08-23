@@ -36,6 +36,10 @@ call plug#begin('~/.vim/plugged')
 	Plug 'mg979/vim-visual-multi'
 	Plug 'lervag/vimtex'
 	Plug 'turbio/bracey.vim', {'do': 'npm install --prefix server'}
+	Plug 'mattn/emmet-vim'
+	Plug 'rebelot/kanagawa.nvim'
+	Plug 'fladson/vim-kitty'
+	Plug 'elkowar/yuck.vim'
 call plug#end()
 
 " whitespace "
@@ -47,20 +51,7 @@ let g:string_whitespace_at_eof=1
 let g:better_whitespace_skip_empty_lines=1
 
 " polyglot "
-let g:go_highlight_build_constraints = 1
-let g:go_highlight_extra_types = 1
-let g:go_highlight_fields = 1
-let g:go_highlight_functions = 1
-let g:go_highlight_methods = 1
-let g:go_highlight_operators = 1
-let g:go_highlight_structs = 1
-let g:go_highlight_types = 1
-let g:go_highlight_function_parameters = 1
-let g:go_highlight_function_calls = 1
-let g:go_highlight_generate_tags = 1
-let g:go_highlight_format_strings = 1
-let g:go_highlight_variable_declarations = 1
-let g:go_auto_sameids = 1
+set nocompatible
 
 autocmd VimEnter * NERDTree
 autocmd VimEnter * wincmd p
@@ -76,23 +67,25 @@ autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTr
 " Exit Vim if NERDTree is the only window remaining in the tab
 autocmd BufEnter * if (winnr("$") == 1 && exists("b:NERDTree") && b:NERDTree.isTabTree()) | q | endif
 
+" lightline "
+
 let g:lightline = {
-	\ 'colorscheme': 'dracula',
+	\ 'colorscheme': 'kanagawa',
 	\ 'active': {
-	\ 'left': [ [ 'mode', 'paste' ],
-	\						[ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
+	\	  'left': [ [ 'mode', 'paste' ],
+	\							[ 'gitbranch', 'readonly', 'filename', 'modified' ] ]
 	\ },
 	\ 'component_function': {
-	\ 	'gitbranch': 'FugitiveHead'
+	\ 	'gitbranch': 'FugitiveHead',
 	\ },
 	\ }
 
-packadd! dracula
-colorscheme dracula
+"packadd! dracula
+colorscheme kanagawa
 
-if filereadable("/etc/vim/vimrc.local")
-  source /etc/vim/vimrc.locl
-endif
+"if filereadable("/etc/vim/vimrc.local")
+  "source /etc/vim/vimrc.locl
+"endif
 
 " competitive programming "
 autocmd FileType cpp nnoremap <leader>rm :!g++ -g --std=c++17 % -o %:r<CR>

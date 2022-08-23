@@ -37,6 +37,5 @@ fi
 #/usr/bin/xmodmap /home/seabert/.Xmodmap
 xmodmap ~/.Xmodmap
 sxhkd &
-udiskie &
 
 exec bspwm

@@ -8,7 +8,7 @@ super + Return
 
 # open dmenu
 super + @space
-	dmenu_run
+	rofi -show run
 
 # reload sxhkd config
 super + Escape
@@ -47,7 +47,7 @@ super + g
 	bspc node -s biggest.window
 
 #
-#
+# nodes
 #
 
 # set window state to tiled, pseudo-tiled, floating, fullscreen
@@ -59,7 +59,7 @@ super + ctrl + {m,x,y,z}
 	bspc node -g {marked,locked,sticky,private}
 
 #
-#
+# movement
 #
 
 # focus node in direction

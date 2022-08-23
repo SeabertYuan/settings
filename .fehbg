@@ -1,2 +1,2 @@
 #!/bin/sh
-feh --no-fehbg --bg-scale '/home/seabert/Pictures/arch.png' 
+feh --no-fehbg --bg-fill --geometry +0-380 '/home/seabert/Pictures/Kanagawa.jpg' 
