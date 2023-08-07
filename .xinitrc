@@ -36,6 +36,8 @@ fi
 
 #/usr/bin/xmodmap /home/seabert/.Xmodmap
 xmodmap ~/.Xmodmap
+xinput --set-prop 11 'libinput Accel Speed' -0.6
+xbindkeys &
 sxhkd &
 
 exec bspwm

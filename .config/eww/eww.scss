@@ -1,0 +1,332 @@
+// Variable Color's
+$background: #1F1F28;
+$altbackground: #2A2A37;
+$foreground: #DCD7BA;
+
+$black: #16161D;
+$gray: #54546D;
+$red: #C34043;
+$green: #76946A;
+$yellow: #DCA561;
+$blue: #7FB4CA;
+$altblue: #2D4F67;
+$magenta: #D27E99;
+$cyan: #6A9589;
+$white: $foreground;
+$altwhite: #C8C093;
+
+*{
+	all: unset;
+	font-family: 'IBM Plex Mono', "IPAGothic";
+}
+
+$altfont: "JetBrainsMono Nerd Font";
+$awesomefont: "Font Awesome 6 Free";
+
+button:hover {
+	color:$blue;
+}
+
+window {
+	color: $foreground;
+}
+
+tooltip {
+	color: $background;
+	background-color: $altblue;
+	font-weight: bolder;
+}
+
+// mute popup
+.muteSym {
+	font-size: 30px;
+	background-color: $altblue;
+}
+
+// calendar
+.calrow1 {
+
+}
+.cal-window {
+	background-color: $black;
+}
+.cal-box {
+	background-color: $black;
+	padding: 1em 0.75em 0.25em;
+	border-radius: 10px;
+	.month-year {
+		font-size: 18px;
+		font-weight: bold;
+		margin: 0.5em 0 0;
+	}
+	.day-names {
+		margin: 1em 0.75em 0;
+		font-size: 14px;
+		font-weight: bold;
+		color: $cyan;
+	}
+	.cal {
+		padding: 1em 0.75em 0;
+}}
+calendar {
+	&:selected {
+		color: $yellow;
+	}
+	&:indeterminate {
+		color: rgba(205, 219, 249, 0.3);
+}}
+calendar.button {
+	color: $gray;
+}
+calendar.highlight {
+	color: $cyan;
+	font-weight: bold;
+	padding: 20px;
+	margin: 20px;
+}
+
+// weather
+
+.weedge {
+	min-height: 270px;
+	min-width: 185px;
+	background-color: $black;
+	border-radius: 10px;
+	padding: 1em 1em 1em 0.05em;
+	margin: 0 0.45em 0 0;
+}
+.calweather {
+	background-color: $foreground;
+	min-height: 240px;
+	min-width: 170px;
+	padding: 2em 0.75em 0.25em;
+	border-radius: 10px;
+	.weicon {
+		font-family: $altfont;
+		font-size: 80px;
+		color: $yellow;
+	}
+	.wereport {
+		font-size: 20px;
+		color: $yellow;
+	}
+	.wetemp {
+		margin-top: 0.5em;
+		color: $altblue;
+	}
+	.wefeel {
+		font-size: 13px;
+		color: $altbackground;
+		margin-top: -0.5em;
+		margin-bottom: 0.5em;
+	}
+	.wehumid {
+		color: $blue;
+}}
+
+// SYSPANEL ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.sysp-window {
+	background-color: $black;
+	//border-radius: 10px;
+	padding: 1.5em 1.5em;
+	.row2 {
+		padding: 0 0em;
+	}
+	.row3 {
+		padding: 0 0.5em;
+}}
+
+// NETWORK & BLUETOOTH ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.netpanel, .bluepanel {
+	color: $background;
+	padding: 0.5em 1.5em;
+	border-radius: 10px;
+	min-width: 210px;
+}
+.netpanel {
+	background-color: $white;
+}
+.bluepanel {
+	background-color: $white;
+}
+.net-status, .blue-status {
+	font-family: $altfont;
+	font-size: 30px;
+}
+.net-text, .blue-text {
+	font-size: 12px;
+	font-weight: bold;
+	padding: 1em 0 0.7em 0;
+}
+.net-info, .blue-info {
+	font-size: 11px;
+	padding: 0 0 1em 0;
+}
+
+.net-information {
+	padding: 0 0 0 1em;
+}
+
+// MUSIC ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.musicbox {
+	background-color: $foreground;
+	border-radius: 10px;
+	margin: 0 0 0 0.5em;
+}
+.music-bg {
+	background-image: url("/home/seabert/Pictures/Kanagawa_blur.jpg");
+	background-size: cover;
+	min-width: 198px;
+	padding: 0.4em 0;
+	border-radius: 10px;
+	color: $background;
+}
+.music-info {
+	background-color: transparent;
+}
+.np {
+	margin: 0.7em;
+	font-weight: bold;
+	font-size: 14px;
+}	
+.title {
+	font-size: 17px;
+	color: $white;
+	font-weight: bold;
+	margin: 1.7em 0.7em 0.3em 0.7em;
+}
+.artist {
+	color: $white;
+	font-size: 12px;
+	font-weight: bolder;
+}
+.album {
+	color: $white;
+	font-size: 11px;
+	font-weight: bolder;
+}
+.music-ctrl {
+	color: $white;
+	margin: 1.5em 0 -0.5em 0;
+}
+
+// music volume ;;;;;;;;;;;;;;;;;;;;;;;
+.mus-vol {
+	margin: 0 0.35em 0 0.4em;
+}
+.musvol-icon {
+	color: $background;
+	font-family: $awesomefont;
+	font-size: 15px;
+	margin: 0 0.1em 0.3em 0;
+}
+.musvol-bar trough {
+	min-width: 10px;
+	min-height: 110px;
+	background-color: $black;
+}
+.musvol-bar trough highlight {
+	background-color: $altblue;
+}
+
+// music bar ;;;;;;;;;;;;;;;;;;;;;;;;;;
+.mus-prog {
+	margin: 1em 0.7em 0 0.7em;
+}
+.musprog-bar trough {
+	min-width: 110px;
+	min-height: 10px;
+	background-color: $black;
+	border-radius: 10px;
+}
+.musprog-bar trough highlight {
+        margin: 3px;
+	background-color: $altblue;
+}
+.musprog-info {
+	font-size: 10px;
+	color: $foreground;
+	margin: 0 0 0 0.6em;
+}
+
+//bars
+.sys-vol{
+	background-color: $altwhite;
+	border-radius: 10px;
+	padding: 0.5em 1.4em 0.5em 1em;
+	margin: 0 0.5em 0 0;
+}
+.mic-vol {
+	background-color: $altwhite;
+	border-radius: 10px;
+	padding: 0.5em 0.85em 0.5em 0.75em;
+}
+.sysvol-icon, .micvol-icon {
+	color: $altblue;
+	font-size: 18px;
+}
+.sysvol-icon {
+	margin-right: 0.7em;
+}
+.micvol-icon {
+	margin-right: 0.5em;
+}
+scale trough {
+	all: unset;
+	background-color: $black;
+	min-width: 190px;
+	min-height: 10px;
+	border-radius: 10px;
+}
+scale trough highlight {
+	background-color: $altblue;
+	border-radius: 10px;
+}
+
+// PROFILE ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.avatar {
+	//background-image: url("/home/gwynsav/.config/eww/avatar.png");
+	//background-size: cover;
+	min-width: 36px;
+	min-height: 36px;
+	border-radius: 100%;
+}
+.username, .hostname {
+	margin-left: 0.7em;
+}
+.username {
+	font-size: 12px;
+	font-weight: bold;
+	color: $gray;
+}
+.hostname {
+	font-size: 10px;
+	font-weight: bolder;
+	color: $altbackground;
+}
+
+// min-weather ;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.weather {
+	font-family: $altfont;
+	font-size: 11px;
+	font-weight: bolder;
+	color: $altbackground;
+}
+.wea-info {
+	background-color: $background;
+	border-radius: 15px;
+	padding: 0.5em 1em;
+}
+.cal-but {
+	background-color: $background;
+	border-radius: 100%;
+	padding: 0.5em 0.9em;
+}
+
+// options ;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;;
+.off, .set-but {
+	font-family: $altfont;
+	font-size: 20px;
+	color: $red;
+}
+

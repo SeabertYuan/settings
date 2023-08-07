@@ -2,6 +2,10 @@
 # general
 #
 
+# open eww
+super + z
+	./eww/target/release/eww open --toggle myWidge
+
 # open kitty
 super + Return
 	kitty

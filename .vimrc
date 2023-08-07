@@ -40,7 +40,11 @@ call plug#begin('~/.vim/plugged')
 	Plug 'rebelot/kanagawa.nvim'
 	Plug 'fladson/vim-kitty'
 	Plug 'elkowar/yuck.vim'
+	Plug 'brenoprata10/nvim-highlight-colors'
 call plug#end()
+
+"python "
+let g:python3_host_prog = '/usr/bin/python3'
 
 " whitespace "
 highlight ExtraWhiteSpace ctermbg=52
@@ -49,6 +53,9 @@ let g:string_whitespace_on_save=1
 let g:string_whitespace_confirm=0
 let g:string_whitespace_at_eof=1
 let g:better_whitespace_skip_empty_lines=1
+
+" highlight colours "
+lua require('nvim-highlight-colors').setup {}
 
 " polyglot "
 set nocompatible
@@ -61,6 +68,11 @@ autocmd VimEnter * if argc() == 1 && isdirectory(argv()[0]) && !exists('s:std_in
     \ execute 'NERDTree' argv()[0] | wincmd p | enew | execute 'cd '.argv()[0] | endif
 let g:NERDTreeWinSize=20
 let NERDTreeShowHidden=1
+let g:NERDTreeWinPos="right"
+
+" emmet-vim
+
+let g:user_emmet_leader_key='<C-Z>'
 
 " Exit Vim if NERDTree is the only window remaining in the only tab.
 autocmd BufEnter * if tabpagenr('$') == 1 && winnr('$') == 1 && exists('b:NERDTree') && b:NERDTree.isTabTree() | quit | endif
@@ -80,6 +92,18 @@ let g:lightline = {
 	\ },
 	\ }
 
+" vimtex"
+let g:vimtex_compiler_latexmk = {
+    \ 'options' : [
+    \   '-pdf',
+    \   '-shell-escape',
+    \   '-verbose',
+    \   '-file-line-error',
+    \   '-synctex=1',
+    \   '-interaction=nonstopmode',
+    \ ],
+    \}
+
 "packadd! dracula
 colorscheme kanagawa
 
@@ -93,16 +117,32 @@ autocmd FileType cpp nnoremap <leader>rr :!./%:r<CR>
 autocmd FileType cpp nnoremap <leader>rt    :!for f in %:r.*.test; do echo "TEST: $f"; ./%:r < $f; done<CR>
 
 " completion with coc using tab "
-inoremap <silent><expr> <TAB>
-			\ pumvisible() ? "\<C-n>" :
-			\ <SID>check_back_space() ? "\<TAB>" :
-			\ coc#refresh()
-inoremap<expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
+"inoremap <silent><expr> <TAB>
+			"\ pumvisible() ? "\<C-n>" :
+			"\ <SID>check_back_space() ? "\<TAB>" :
+			"\ coc#refresh()
+"inoremap<expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
 
-function! s:check_back_space() abort
+"function! s:check_back_space() abort
+  "let col = col('.') - 1
+  "return !col || getline('.')[col - 1]  =~# '\s'
+"endfunction
+inoremap <silent><expr> <TAB>
+      \ coc#pum#visible() ? coc#pum#next(1) :
+      \ CheckBackspace() ? "\<Tab>" :
+      \ coc#refresh()
+inoremap <expr><S-TAB> coc#pum#visible() ? coc#pum#prev(1) : "\<C-h>"
+
+" Make <CR> to accept selected completion item or notify coc.nvim to format
+" <C-g>u breaks current undo, please make your own choice
+inoremap <silent><expr> <CR> coc#pum#visible() ? coc#pum#confirm()
+                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
+
+function! CheckBackspace() abort
   let col = col('.') - 1
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
+
 
 " <c-space> for completion
 if has('nvim')
@@ -110,9 +150,6 @@ if has('nvim')
 else
   inoremap <silent><expr> <c-@> coc#refresh()
 endif
-
-inoremap <silent><expr> <cr> pumvisible() ? coc#_select_confirm()
-                              \: "\<C-g>u\<CR>\<c-r>=coc#on_enter()\<CR>"
 
 " templates "
 if has("autocmd")
@@ -122,5 +159,6 @@ if has("autocmd")
 		autocmd BufNewFile *.html 0r ~/.vim/templates/skeleton.html
 		autocmd BufNewFile style.css 0r ~/.vim/templates/style.css
 		autocmd BufNewFile *.sh 0r ~/.vim/templates/skeleton.sh
+		autocmd BufNewFile *.tex 0r ~/.vim/templates/skeleton.tex
 	augroup END
 endif

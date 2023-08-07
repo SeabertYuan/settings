@@ -8,5 +8,7 @@
     "coc-markdownlint": ">=1.12.3",
     "coc-tsserver": ">=1.9.4",
     "coc-vimtex": ">=1.1.5"
-  }
+  },
+  "disabled": [],
+  "locked": []
 }
