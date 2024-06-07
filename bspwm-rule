@@ -1,38 +1,102 @@
 #!/bin/sh
+#
+# external_rules_command
+#
+# Absolute path to the command used to retrieve rule consequences.
+# The command will receive the following arguments: window ID, class
+# name, instance name, and intermediate consequences. The output of
+# that command must have the following format: key1=value1
+# key2=value2 ...  (the valid key/value pairs are given in the
+# description of the rule command).
+#
+#
+# Rule
+#    General Syntax
+# 	   rule COMMANDS
+#
+#    Commands
+# 	   -a, --add (<class_name>|*)[:(<instance_name>|*)] [-o|--one-shot]
+# 	   [monitor=MONITOR_SEL|desktop=DESKTOP_SEL|node=NODE_SEL]
+# 	   [state=STATE] [layer=LAYER] [split_dir=DIR] [split_ratio=RATIO]
+# 	   [(hidden|sticky|private|locked|marked|center|follow|manage|focus|border)=(on|off)]
+# 	   [rectangle=WxH+X+Y]
+# 		   Create a new rule.
+#
+# 	   -r, --remove
+# 	   ^<n>|head|tail|(<class_name>|*)[:(<instance_name>|*)]...
+# 		   Remove the given rules.
+#
+# 	   -l, --list
+# 		   List the rules.
+# I stole this from d630 online
 
-id="${1?}" \
-instance="$3" \
-class="$2";
+border='' \
+center='' \
+class=$2 \
+desktop='' \
+focus='' \
+follow='' \
+hidden='' \
+id=${1?} \
+instance=$3 \
+layer='' \
+locked='' \
+manage='' \
+marked='' \
+misc=$4 \
+monitor='' \
+node='' \
+private='' \
+rectangle='' \
+split_dir='' \
+split_ratio='' \
+state='' \
+sticky='' \
+urgent=
 
-case "$class" in
-    (foo)
-        bar;;
-    ("")
-        unset -v _NET_WM_PID;
-        . /dev/fd/0 2>/dev/null <<IN
-        : \"\${$(
-            xprop \
-                -id "$id" \
-                -notype \
-                -f _NET_WM_PID 32c '=$0' \
-                _NET_WM_PID;
-        )}\";
-IN
-        case "$(ps -p "${_NET_WM_PID:?}" -o comm= 2>/dev/null)" in
-            (spotify)
-                echo state=floating, desktop=^7;;
-        esac;;
-esac;
+firefox() { desktop=^2; }
+gimp() { follow=on; }
+libreoffice() { state=tiled layer=normal; }
+mpv() { state=floating layer=normal; }
+spotify() { desktop=^7; }
+thunderbird() { desktop=^7; }
+zoom() { desktop=^3 state=floating; }
 
-#thanks d630 what a gigachad
+case $instance.$class in
+    *.Gimp) gimp ;;
+    *.Spotify) spotify ;;
+    *.[Ff]irefox) firefox ;;
+    *.mpv) mpv ;;
+    *.thunderbird) thunderbird ;;
+    *.zoom*) zoom ;;
+    [lL]ibre[oO]ffice*) libreoffice ;;
+    .)
+        case $(exec ps -p "$(exec xdo pid "$id")" -o comm= 2>/dev/null) in
+            spotify) spotify ;;
+            *) exit 0 ;;
+        esac
+        ;;
+esac
 
-#wid=$1
-#class=$2
-#instance=$3
+printf '%s ' \
+    ${border:+"border=$border"} \
+    ${center:+"center=$center"} \
+    ${desktop:+"desktop=$desktop"} \
+    ${focus:+"focus=$focus"} \
+    ${follow:+"follow=$follow"} \
+    ${hidden:+"hidden=$hidden"} \
+    ${layer:+"layer=$layer"} \
+    ${locked:+"locked=$locked"} \
+    ${manage:+"manage=$manage"} \
+    ${marked:+"marked=$marked"} \
+    ${monitor:+"monitor=$monitor"} \
+    ${node:+"node=$node"} \
+    ${private:+"private=$private"} \
+    ${rectangle:+"rectangle=$rectangle"} \
+    ${split_dir:+"split_dir=$split_dir"} \
+    ${split_ratio:+"split_ratio=$split_ratio"} \
+    ${state:+"state=$state"} \
+    ${sticky:+"sticky=$sticky"} \
+    ${urgent:+"urgent=$urgent"}
 
-#if [[ "$instance" == polybar ]]; then
-  ## For my lemonbar calling raise is enough, but if not, you might also have to run this:
-  #xdo above -t "$(xdo id -N Bspwm -n root | sort | head -n 1)" $wid
-  #xdo raise $id
-#fi
-
+# vim: set ft=sh :

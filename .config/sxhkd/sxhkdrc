@@ -1,3 +1,20 @@
+# media keys
+XF86AudioMute
+	pamixer -t
+
+XF86AudioMicMute
+	amixer -c 1 sset Mic toggle
+
+XF86MonBrightnessUp
+	brightnessctl set +5%
+
+XF86MonBrightnessDown
+	brightnessctl set 5%-
+
+XF86AudioRaiseVolume
+	pamixer -i 3
+XF86AudioRaiseVolume
+	pamixer -d 3
 #
 # general
 #
@@ -12,7 +29,7 @@ super + Return
 
 # open dmenu
 super + @space
-	rofi -show run
+	rofi -show drun
 
 # reload sxhkd config
 super + Escape
@@ -21,6 +38,10 @@ super + Escape
 # take a screenshot and copy to clipboard
 Print
 	maim -s -u | xclip -selection clipboard -t image/png -i
+
+# open clipboard
+ctrl + semicolon
+	clipmenu
 
 #
 # General bspwm
