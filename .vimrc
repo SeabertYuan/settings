@@ -17,11 +17,12 @@ set termguicolors
 set nojoinspaces
 set splitbelow splitright
 set nostartofline
-set hidden nobackup nowritebackup
+set hidden nobackup nowritebackup "Coc backup files may cause issues
 set cmdheight=2
 set updatetime=300
 set cursorcolumn
 set cursorline
+set signcolumn=yes
 
 " Vim plugins through vim-plug
 call plug#begin('~/.vim/plugged')
@@ -41,6 +42,7 @@ call plug#begin('~/.vim/plugged')
 	Plug 'fladson/vim-kitty'
 	Plug 'elkowar/yuck.vim'
 	Plug 'brenoprata10/nvim-highlight-colors'
+	Plug 'brennier/quicktex'
 call plug#end()
 
 "python "
@@ -103,8 +105,8 @@ let g:vimtex_compiler_latexmk = {
     \   '-interaction=nonstopmode',
     \ ],
     \}
+let g:vimtex_view_general_viewer = 'okular'
 
-"packadd! dracula
 colorscheme kanagawa
 
 "if filereadable("/etc/vim/vimrc.local")
@@ -117,16 +119,6 @@ autocmd FileType cpp nnoremap <leader>rr :!./%:r<CR>
 autocmd FileType cpp nnoremap <leader>rt    :!for f in %:r.*.test; do echo "TEST: $f"; ./%:r < $f; done<CR>
 
 " completion with coc using tab "
-"inoremap <silent><expr> <TAB>
-			"\ pumvisible() ? "\<C-n>" :
-			"\ <SID>check_back_space() ? "\<TAB>" :
-			"\ coc#refresh()
-"inoremap<expr><S-TAB> pumvisible() ? "\<C-p>" : "\<C-h>"
-
-"function! s:check_back_space() abort
-  "let col = col('.') - 1
-  "return !col || getline('.')[col - 1]  =~# '\s'
-"endfunction
 inoremap <silent><expr> <TAB>
       \ coc#pum#visible() ? coc#pum#next(1) :
       \ CheckBackspace() ? "\<Tab>" :
@@ -143,14 +135,6 @@ function! CheckBackspace() abort
   return !col || getline('.')[col - 1]  =~# '\s'
 endfunction
 
-
-" <c-space> for completion
-if has('nvim')
-  inoremap <silent><expr> <c-space> coc#refresh()
-else
-  inoremap <silent><expr> <c-@> coc#refresh()
-endif
-
 " templates "
 if has("autocmd")
 	augroup templates
@@ -162,3 +146,23 @@ if has("autocmd")
 		autocmd BufNewFile *.tex 0r ~/.vim/templates/skeleton.tex
 	augroup END
 endif
+
+" quicktex "
+let g:quicktex_trigger = " "
+let g:quicktex_tex = {
+    \' '   : "\<ESC>:call search('<+.*+>')\<CR>\"_c/+>/e\<CR>",
+    \'m'   : '\( <+++> \) <++>',
+    \'prf' : "\\begin{proof}\<CR><+++>\<CR>\\end{proof}",
+		\'aln*': "\\begin{align*}\<CR><+++>\<CR>\\end{align*}",
+\}
+
+let g:quicktex_math = {
+    \' '    : "\<ESC>:call search('<+.*+>')\<CR>\"_c/+>/e\<CR>",
+    \'fr'   : '\mathcal{R} ',
+    \'set'  : '\{ <+++> \} <++>',
+    \'frac' : '\frac{<+++>}{<++>} <++>',
+    \'st'   : ': ',
+    \'in'   : '\in ',
+    \'bn'   : '\mathbb{N} ',
+		\'lim'  : '\lim_{<+++> \to <++>}<++>',
+\}
