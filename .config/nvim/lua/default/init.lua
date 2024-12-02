@@ -1,0 +1,6 @@
+require("default.plug")
+require("default.plugins")
+require("default.sets")
+require("default.remaps")
+require("default.filetype")
+require("default.terminal")
