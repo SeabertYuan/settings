@@ -1,0 +1,219 @@
+;(defwindow example
+           ;:monitor 1
+           ;:geometry (geometry :x "-652px"
+                               ;:y "33px"
+                               ;:width "600px"
+                               ;:height "800px"
+                               ;:anchor "top center")
+           ;:stacking "fg"
+           ;:windowtype "dock"
+           ;:wm-ignore false
+  ;())
+
+(defwindow myWidge
+					 :monitor 0
+           :geometry (geometry :x "8px"
+                               :y "33px"
+                               :width "510px"
+                               :height "590px"
+                               :anchor "top left")
+           ;:stacking "fg"
+           ;:windowtype "dock"
+					 ;:wm-ignore false
+	(widgey))
+
+(defwindow volumePopup
+					:monitor 0
+					:geometry (geometry :x "1250px"
+															:y "1340px"
+															:width "60px"
+															:height "60px")
+					;:stacking "fg"
+					;:windowtype "dialog"
+					;:wm-ignore true
+	(volchange))
+(defwindow mutePopup
+					:monitor 0
+					:geometry (geometry :x "1250px"
+															:y "1340px"
+															:width "60px"
+															:height "60px")
+					;:stacking "fg"
+					;:windowtype "dialog"
+					;:wm-ignore true
+											(mute))
+
+(defwidget widgey []
+	(box :orientation "v" :space-evenly "false" :spacking 5
+		(cal)
+		(syspanel)))
+
+(defwindow cal-win
+					 :monitor 0
+           :geometry (geometry :x "8px"
+                               :y "33px"
+                               :width "510px"
+                               :height "300px"
+                               :anchor "top left")
+           ;:stacking "fg"
+           ;:windowtype "dock"
+					 ;:wm-ignore false
+  (cal))
+
+;; calendar
+
+(defwidget cal []
+  (box :class "cal-window" :orientation "h" :space-evenly "false" :spacing 5
+    (box :class "cal-box" :orientation "v" :space-evenly "false"
+      (label :class "month-year" :text month_year)
+      (box :class "day-names" :orientation "h" :space-evenly "true"
+        (label :text "日")
+        (label :text "月")
+        (label :text "火")
+        (label :text "水")
+        (label :text "木")
+        (label :text "金")
+        (label :text "土"))
+      (calendar :class "cal"
+                :show-details false :show-heading false :show-day-names false
+                :day calendar_day :month calendar_month :year calendar_year))
+
+    (box :class "weedge"
+			(box :class "calweather" :orientation "v" :space-evenly "false" :spacing 10 :halign "center"
+				(label :class "weicon" :text "${wicon}")
+				(label :class "wereport" :text "${wdesc}")
+				(label :class "wetemp" :text "It's ${wtemp} out")
+				(label :class "wefeel" :text "Feels like ${wfeel}")
+				(label :class "wehumid" :text "Humidity is at ${whumid}%")))))
+
+(defvar call false)
+(defpoll calendar_day :interval "10h" "date -u '+%d'")
+(defpoll calendar_month :interval "10h" "./scripts/calendar.sh")
+(defpoll calendar_year :interval "10h" "date -u '+%Y'")
+(defpoll month_year :interval "24h" "date -u '+%B, %Y'")
+
+(defpoll whumid :interval "900s" "./scripts/weather.sh humidity")
+(defpoll wfeel :interval "900s" "./scripts/weather.sh feels_like")
+(defpoll wtemp :interval "900s" "./scripts/weather.sh current_temp")
+(defpoll wdesc :interval "900s" "./scripts/weather.sh weather_desc")
+(defpoll wicon :interval "900s" "./scripts/weather.sh weather_desc_icon")
+
+;; system panel
+
+(defwindow systempanel
+	:geometry (geometry :x "8px" :y "353px" :anchor "top left"
+			    :width "505px" :height "290px")
+	;:windowtype "dock" ;:stacking "fg" :wm-ignore false
+(syspanel))
+
+(defwidget syspanel []
+	(box :class "sysp-window" :orientation "v" :valign "center" :space-evenly "false" :spacing 10
+		(box :class "row1" :orientation "h" :space-evenly "false" :spacing 5
+			(box :class "column1" :orientation "v" :spacing 10
+				(netpanel)
+				(bluepanel))
+			(musicplayer))
+		(box :class "row2" :orientation "h" :space-evenly "false" :spacing 5
+			(sysvolume)
+			(micvolume))
+		(box :class "row3" :orientation "h" 
+			(profile)
+			(weather)
+			(options))))
+
+(defvar sysp false)
+
+(defwidget netpanel []
+	(box :class "netpanel" :orientation "h" :halign "start" :space-evenly "true"
+		(button :class "net-status" :halign "start" :onclick "./scripts/network.sh toggle" "${net-status}")
+		(box :class "net-information" :orientation "v" :space-evenly "false"
+			(button :class "net-text" :halign "end" :onclick "kitty -e iwctl" "Network")
+			(label :class "net-info" :halign "end" :text network :limit-width "18"))))
+(defpoll network :interval "3s" "./scripts/network.sh network")
+(defpoll net-status :interval "3s" "./scripts/network.sh status")
+
+(defwidget bluepanel []
+	(box :class "bluepanel" :orientation "h" :halign "start" :space-evenly "true"
+		(button :class "blue-status" :halign "start" :onclick "./scripts/bluetooth.sh power" "${blue-status}")
+		(box :class "blue-information" :orientation "v" :space-evenly "false"
+			(button :class "blue-text" :halign "end" :onclick "kitty -e bluetoothctl" "Bluetooth")
+			(label :class "blue-info" :halign "end" :text bluetooth))))
+;(defpoll bluetooth :interval "3s" "./scripts/bluetooth.sh device")
+(deflisten bluetooth :initial "" "./scripts/scroll_bluetooth.sh")
+(defpoll blue-status :interval "3s" "./scripts/bluetooth.sh status")
+
+(defwidget musicplayer []
+	(box :class "musicbox" :orientation "h" :halign "end" :space-evenly "false"
+		(box :class "music-bg" :orientation "v" :space-evenly "false"
+			(box :class "music-info" :orientation "v" :space-evenly "false"
+				;(label :class "np" :text mus-np)
+				(label :class "title" :text mus-title)
+				(label :class "artist" :text mus-artist :limit-width 16)
+				(label :class "album" :text mus-album))
+			(box :class "music-ctrl" :orientation "h" :halign "center" :space-evenly "false" :spacing 20
+				(button :onclick "playerctl previous -p spotify" "")
+				(button :onclick "playerctl play-pause -p spotify" mus-tog)
+				(button :onclick "playerctl next -p spotify" ""))
+			(box :class "mus-prog" :orientation "h" :space-evenly "false"
+				(scale :class "musprog-bar" :orientation "h" :min 0 :max 101 :active false :value mus-prog)
+				(label :class "musprog-info" :text "${mus-prog-display}")))
+		(box :class "mus-vol" :orientation "v" :valign "center" :space-evenly "false"
+			(label :class "musvol-icon" :text "")
+			(scale	:class "musvol-bar" :orientation "v" :flipped true :min 0 :max 100 :value "${musvol}" :onchange "playerctl volume --player=spotify 0.{}"))))
+(defpoll musvol     :interval "500ms" "./scripts/volume.sh musvol")
+(defpoll mus-np     :interval "3s"    "./scripts/music.sh status")
+(defpoll mus-tog    :interval "500ms" "./scripts/music.sh statusbut")
+(deflisten mus-title :initial "" "./scripts/scroll.sh")
+;(defpoll mus-title  :interval "3s"    "./scripts/music.sh title")
+(defpoll mus-artist :interval "1s"    "./scripts/music.sh artist")
+(deflisten mus-album :initial "" "./scripts/scroll_artist.sh")
+;(defpoll mus-album  :interval "3s"    "./scripts/music.sh album")
+(defpoll mus-prog   :interval "1s"    "./scripts/music.sh progress")
+(defpoll mus-prog-display   :interval "1s"    "./scripts/music.sh dispprog")
+
+(defwidget sysvolume []
+	(box :class "sys-vol" :orientation "h" :halign "start" :space-evenly "false"
+		(button :class "sysvol-icon" :tooltip "Volume: ${sysvol}%" :onclick "pamixer -t" "${sysico}")
+		(scale	:class "sysvol-bar" :orientation "h" :min 0 :max 100 :value "${sysvol}" :onchange "pamixer --set-volume {}")))
+
+(defpoll audevice :interval "15s" "./scripts/volume.sh audevice")
+(defpoll sysvol :interval "500ms" "./scripts/volume.sh sysvol")
+(defpoll sysico :interval "1s" "./scripts/volume.sh sysmute")
+
+(defwidget volchange []
+	(box :class "sys-vol" :orientation "h" :halign "start" :space-evenly "false"
+		(label :class "curVol" :text "${sysvol}")
+		;(button :class "sysvol-icon" :tooltip "Volume: ${sysvol}%" :onclick "pamixer -t" "${sysico}")
+		(scale	:class "sysvol-bar" :orientation "h" :min 0 :max 100 :value "${sysvol}" :onchange "pamixer --set-volume {}")))
+
+(defwidget micvolume []
+	(box :class "mic-vol" :orientation "h" :halign "start" :space-evenly "false"
+		(button :class "micvol-icon" :tooltip "Microphone: ${micvol}%" :onclick "amixer -c 1 sset Mic toggle" "${micico}")
+		(scale	:class "micvol-bar" :orientation "h" :min 0 :max 101 :onchange "amixer -c 1 sset Mic {}%" :value micvol)))
+(defpoll micvol :interval "500ms" "./scripts/volume.sh micvol")
+(defpoll micico :interval "1s" "./scripts/volume.sh micmute")
+
+(defwidget mute []
+	(label :class "muteSym" :text "${micico}"))
+
+(defwidget profile []
+	(box :class "profile" :orientation "h" :space-evenly "false" :halign "start"
+		(box :class "avatar")
+		(box :class "names" :orientation "v" :valign "center" :space-evenly "false"
+			(button :class "username" :onclick "./scripts/openwindow.sh fetch" "${username}")
+			(label :class "hostname" :text "${hostname}"))))
+(defpoll username :interval "60s" "whoami")
+(defpoll hostname :interval "60s" "hostname")
+
+(defwidget weather []
+	(box :class "weather" :orientation "h" :valign "center" :halign "center" :space-evenly "false" :spacing 8
+		(button :class "cal-but"  :onclick "./scripts/openwindow.sh calendar" "")
+		(button :class "wea-info" :onclick "./scripts/openwindow.sh calendar" "${wicon} ${wtemp}")))
+
+(defwidget options []
+	(box :class "options" :orientation "h" :halign "end" :space-evenly "false" :spacing 15
+		(button :class "set-but"  :onclick "kitty -e lf ~/.config/eww" "")
+		(button :class "off" :onclick "./scripts/openwindow.sh suspend" "󰤂")
+		(button :class "off"  :onclick "./scripts/openwindow.sh reboot" "󰜉")
+		(button :class "off" :onclick "./scripts/openwindow.sh power" "󰐥")))
+

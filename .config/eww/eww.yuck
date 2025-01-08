@@ -1,0 +1,155 @@
+;(include "./menu.yuck")
+
+(defwidget bar []
+  (centerbox :orientation "h"
+    (workspaces)
+    (music)
+    (sidestuff)))
+
+(defwidget sidestuff []
+  (box :class "sidestuff" :orientation "h" :space-evenly false :halign "end"
+       :spacing 8
+    (metric :label { volume > 66 ? "" :
+                     volume > 33 ? "" : "" }
+            :value volume
+            :onchange "")
+    ;mic
+    (_network :sig_strength sig_strength :offline "󰤭" :poor "󰤯" :okay "󰤟" :good "󰤢"
+            :very_good "󰤥" :excellent "󰤨" :net_name net_name)
+    ;cpu
+    (c_metric :label ""
+              :value {round(EWW_CPU.avg,0)})
+    (c_metric :label ""
+              :value {round(EWW_RAM.used_mem_perc,0)})
+    ;(_temp :cpu_temp {EWW_TEMPS.THINKPAD_CPU})
+    (metric :label ""
+            :value {round((1 - (EWW_DISK["/"].free / EWW_DISK["/"].total)) * 100, 0)}
+            :onchange "")
+    (_brightness :brightness brightness_percent)
+    (_battery :status {EWW_BATTERY.BAT0.status}
+            :battery {EWW_BATTERY.BAT0.capacity}
+            :charging ""
+            :empty "" :low "" :mid "" :high "" :full ""
+            :plugged "")
+    time))
+
+(defwidget _network [sig_strength offline poor okay
+                     good very_good excellent net_name]
+  (box :class "net-box"
+       :space-evenly false
+       :spacing 8
+    (label :class "icon" :text {sig_strength=="" ? offline :
+      sig_strength > -50 ? excellent :
+        sig_strength > -60 ? very_good :
+          sig_strength > -70 ? good :
+            sig_strength > -80 ? okay : poor})
+    (label :text {net_name})))
+
+(defwidget _battery [status battery charging empty low
+                    mid high full plugged]
+  (box :class "bat-box" :space-evenly false :spacing 6
+    (label :class "icon" :text {status == 'Charging' ? charging :
+      status == 'Not charging' ? plugged :
+      battery < 10 ? empty :
+        battery < 30 ? low :
+          battery < 50 ? mid :
+            battery < 80 ? high : full})
+    (label :text "${battery}%" )))
+
+(defwidget _temp [cpu_temp]
+  (box :class "temp-box"
+       :space-evenly false
+       :spacing 8
+    (label :text "${cpu_temp}°C")))
+
+(defwidget _brightness [brightness]
+  (box :class "brightness-box"
+       :space-evenly false
+       :spacing 8
+    (circular-progress :value {brightness}
+                       :valign "center"
+                       :start-at 75
+                       :thickness 5
+                       :clockwise false
+                       :class "r-metric")
+    (label :text "${brightness}%")))
+
+(defwidget workspaces []
+; TODO write a program which uses sway-ipc to get active workspace and only display used workspaces
+  (box :class "workspaces"
+       :orientation "h"
+       :space-evenly true
+       :halign "start"
+       :spacing 10
+    (button :onclick "swaymsg workspace 1" 1)
+    (button :onclick "swaymsg workspace 2" 2)
+    (button :onclick "swaymsg workspace 3" 3)
+    (button :onclick "swaymsg workspace 4" 4)
+    (button :onclick "swaymsg workspace 5" 5)
+    (button :onclick "swaymsg workspace 6" 6)
+    (button :onclick "swaymsg workspace 7" 7)
+    (button :onclick "swaymsg workspace 8" 8)
+    (button :onclick "swaymsg workspace 9" 9)))
+
+(defwidget music []
+  (box :class "music"
+       :orientation "h"
+       :space-evenly false
+       :halign "center"
+    {isPlaying == "Playing" ? "${music}" : ""}))
+
+
+(defwidget metric [label value onchange]
+  (box :orientation "h"
+       :class "metric"
+       :space-evenly false
+    (box :class "label" label)
+    (scale :min 0
+           :max 101
+           :active {onchange != ""}
+           :value value
+           :onchange onchange)))
+
+(defwidget c_metric [label value]
+  (box :orientation "h"
+       :class "c-metric"
+       :space-evenly false
+       :spacing 8
+       (label :text label)
+       (label :text "${value}%")))
+
+
+
+(deflisten music :initial ""
+   ;"scripts/get_spotify_status.sh --status 2> /dev/null")
+  "playerctl --player=spotify --follow metadata --format '{{ title }} - {{ artist }}' || true")
+
+(defpoll isPlaying :interval "2s"
+  `playerctl --player=spotify status || true`)
+
+(defpoll volume :interval "1s"
+  "scripts/getvol.sh")
+
+(defpoll time :interval "10s"
+  "date '+%H:%M %b %d'")
+
+(defpoll sig_strength :interval "100s"
+  :initial ""
+    `iwctl station wlan0 show | grep "AverageRSSI" | awk '{print $2}'`)
+
+(defpoll net_name :interval "120s"
+  :initial ""
+    `iwctl station wlan0 show | grep "Connected network" | awk '{$1=""; $2=""; print $0}'`)
+
+; TODO fix this deflisten issue
+(deflisten brightness_percent :initial "0"
+  `brightnessctl -m | cut -d ',' -f 4 | sed 's/%//'`)
+
+(defwindow bar
+  :monitor 0
+  :geometry (geometry :x "0%"
+                      :y "0%"
+                      :width "100%"
+                      :height "15px"
+                      :anchor "bottom center")
+  (bar))
