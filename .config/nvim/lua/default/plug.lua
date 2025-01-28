@@ -37,6 +37,9 @@ Plug("nmac427/guess-indent.nvim")
 
 Plug("stevearc/overseer.nvim")
 
+Plug("kevinhwang91/promise-async")
+Plug("kevinhwang91/nvim-ufo")
+
 -- Plug("rust-lang/rust.vim")
 
 vim.call("plug#end")

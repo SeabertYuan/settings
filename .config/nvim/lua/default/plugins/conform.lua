@@ -6,6 +6,7 @@ require("conform").setup({
 		lua = { "stylua" },
 		json = { "jq" },
 		java = { "google-java-format" },
+		python = { "black" },
 	},
 	format_on_save = function(bufnr)
 		-- Disable with a global or buffer-local variable
