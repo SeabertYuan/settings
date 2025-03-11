@@ -5,9 +5,11 @@
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
+eval "$(fzf --bash)"
+
 alias ls='ls --color=auto'
 alias grep='grep --color=auto'
-alias gt="sh ~/generate_template.sh"
+alias gt="sh ~/scripts/generate-template.sh"
 alias eww="~/builds/eww/target/release/eww"
 alias dotfiles='/usr/bin/git --git-dir="$HOME/.dotfiles/" --work-tree="$HOME"'
 PS1='[\u@\h \W]\$ '
