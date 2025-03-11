@@ -1,5 +1,4 @@
 require("lint").linters_by_ft = {
-	cpp = { "clangtidy" },
 	lua = { "luacheck" },
 }
 

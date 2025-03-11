@@ -20,7 +20,6 @@ Plug("williamboman/mason-lspconfig.nvim")
 Plug("neovim/nvim-lspconfig")
 Plug("hrsh7th/nvim-cmp")
 Plug("hrsh7th/cmp-nvim-lsp")
-Plug("L3MON4D3/LuaSnip")
 
 Plug("VonHeikemen/lsp-zero.nvim", { ["branch"] = "v3.x" })
 
@@ -34,8 +33,6 @@ Plug("micangl/cmp-vimtex")
 Plug("andymass/vim-matchup")
 
 Plug("nmac427/guess-indent.nvim")
-
-Plug("stevearc/overseer.nvim")
 
 Plug("kevinhwang91/promise-async")
 Plug("kevinhwang91/nvim-ufo")

@@ -1,4 +1,5 @@
 require("nvim-treesitter.configs").setup({
+	-- parsers to ignore installing
 	ignore_install = { "latex" },
 	-- A list of parser names, or "all" (the five listed parsers should always be installed)
 	ensure_installed = {
@@ -25,8 +26,7 @@ require("nvim-treesitter.configs").setup({
 
 	highlight = {
 		enable = true,
-		disable = { "latex" },
-
+		disable = { "latex", "json" },
 		additional_vim_regex_highlighting = false,
 	},
 })

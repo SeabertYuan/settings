@@ -1,16 +1,16 @@
 #include <bits/stdc++.h>
+#include <limits.h>
 
 using namespace std;
 
 typedef long long ll;
 typedef long double ld;
 
-const int MAX_N = 1e5 + 5;
+const int MAX_N = 1e5;
 const ll MOD = 1e9 + 7;
-const ll INF = 1e9;
 
 void solve() {
-    
+  
 }
 
 int main() {

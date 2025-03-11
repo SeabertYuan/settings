@@ -5,7 +5,7 @@ require("conform").setup({
 		typescript = { "prettierd", "prettier" },
 		lua = { "stylua" },
 		json = { "jq" },
-		java = { "google-java-format" },
+		-- java = { "google-java-format" },
 		python = { "black" },
 	},
 	format_on_save = function(bufnr)
