@@ -21,7 +21,8 @@ read -r LS < "$LID_STATE_FILE"
 case "$LS" in
 *open)   swaymsg output "$LAPTOP_OUTPUT" enable ;;
 *closed)
-    if [[ $(swaymsg -t get_outputs | grep name | wc -l) == 1 ]]; then
+    # hardcoded since drivers changing messes things up
+    if [[ $(swaymsg -t get_outputs | grep name | wc -l) == 1 && $(swaymsg -t get_outputs | grep "DP-3" | wc -l) == 0 ]]; then
         fusermount3 -u ssh_mnt #unmount ssh_mnt so the filesystem doesn't shit the bed
         swaylock --daemonize -e -f -i ~/Pictures/Kanagawa_blur.jpg
         sleep 1

@@ -35,9 +35,7 @@ output * bg /home/seabert/Pictures/Kanagawa.jpg fill
 bindswitch --reload --locked lid:on exec_always ~/.config/sway/laptop-lid.sh
 bindswitch --reload --locked lid:off exec_always ~/.config/sway/laptop-lid.sh
 exec_always ~/.config/sway/laptop-lid.sh
-output $monitor {
-  mode 2560x1440@59.951Hz
-}
+output $monitor resolution 2560x1440
 #
 # You can get the names of your outputs by running: swaymsg -t get_outputs
 
@@ -57,6 +55,9 @@ output $monitor {
 ### Autostart
 
 exec fcitx5
+exec ~/builds/eww/target/release/eww daemon
+# xdg-desktop-portal for screen capture
+exec --no-startup-id /usr/lib/xdg-desktop-portal -r
 # for foot in server mode
 # exec foot --server
 
@@ -233,18 +234,20 @@ bindsym XF86MonBrightnessDown exec bash ~/.config/sway/media-keys.sh dbrightness
 # screenshots
 bindsym Print exec grim -g "$(slurp)" -t png - | wl-copy -t image/png
 # copy audio
-bindsym $mod+alt+c exec bash ~/capture-audio.sh
+bindsym $mod+alt+c exec bash ~/scripts/capture-audio.sh
 
 #
 # Status Bar:
 #
 # Read `man 5 sway-bar` for more information about this section.
 bar {
-    swaybar_command waybar
+    # swaybar_command waybar
     # mode hide
     # hidden_state hide
-    position bottom
+    # position bottom
 }
+
+bindsym $mod+tab exec ~/builds/eww/target/release/eww open --toggle bar
 
 #
 # Misc.
@@ -261,9 +264,6 @@ for_window [shell="xwayland"] title_format "[XWayland] %title"
 # floating zoom
 for_window [app_id="zoom" title="^zoom$"] border none, floating enable
 for_window [title="^zoom$" class="[zoom]*"] floating enable
-
-# xdg-desktop-portal for screen capture
-exec --no-startup-id /usr/lib/xdg-desktop-portal -r
 
 # disable primary selection
 primary_selection disabled
