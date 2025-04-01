@@ -1,4 +1,4 @@
-require("default.plug")
+require("default.packer")
 require("default.plugins")
 require("default.sets")
 require("default.remaps")

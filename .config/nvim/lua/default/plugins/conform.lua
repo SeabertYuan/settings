@@ -1,12 +1,15 @@
 require("conform").setup({
 	formatters_by_ft = {
-		javascript = { "prettierd", "prettier" },
-		cpp = { "clang-format" },
-		typescript = { "prettierd", "prettier" },
-		lua = { "stylua" },
+		javascript = { "prettier" },
+		typescript = { "prettier" },
 		json = { "jq" },
 		-- java = { "google-java-format" },
 		python = { "black" },
+	},
+	formatters = {
+		prettier = {
+			cmd = "prettier",
+		},
 	},
 	format_on_save = function(bufnr)
 		-- Disable with a global or buffer-local variable

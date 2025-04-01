@@ -1,3 +1,4 @@
+-- for vim plug which I no longer use
 local vim = vim
 local Plug = vim.fn["plug#"]
 
