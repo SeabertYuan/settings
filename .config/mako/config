@@ -1,0 +1,20 @@
+font=JetBrainsMono NFP 9
+default-timeout=5000
+text-color=#DCD7BA
+max-icon-size=32
+
+[urgency=low]
+background-color=#1F1F28
+border-color=#363646
+
+[urgency=normal]
+background-color=#252535
+border-color=#6A9589
+
+[urgency=high]
+background-color=#252535
+border-color=#E82424
+default-timeout=0
+
+[mode=do-not-disturb]
+invisible=1
