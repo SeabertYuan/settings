@@ -74,27 +74,10 @@ end
 time([[try_loadstring definition]], false)
 time([[Defining packer_plugins]], true)
 _G.packer_plugins = {
-  LuaSnip = {
-    cond = { false },
-    loaded = false,
-    needs_bufread = true,
-    only_cond = true,
-    path = "/home/seabert/.local/share/nvim/site/pack/packer/opt/LuaSnip",
-    url = "https://github.com/L3MON4D3/LuaSnip"
-  },
   ["blink.cmp"] = {
     loaded = true,
     path = "/home/seabert/.local/share/nvim/site/pack/packer/start/blink.cmp",
     url = "https://github.com/saghen/blink.cmp"
-  },
-  ["cmp-nvim-lsp"] = {
-    after_files = { "/home/seabert/.local/share/nvim/site/pack/packer/opt/cmp-nvim-lsp/after/plugin/cmp_nvim_lsp.lua" },
-    cond = { false },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = true,
-    path = "/home/seabert/.local/share/nvim/site/pack/packer/opt/cmp-nvim-lsp",
-    url = "https://github.com/hrsh7th/cmp-nvim-lsp"
   },
   ["conform.nvim"] = {
     loaded = true,
@@ -110,14 +93,6 @@ _G.packer_plugins = {
     loaded = true,
     path = "/home/seabert/.local/share/nvim/site/pack/packer/start/kanagawa.nvim",
     url = "https://github.com/rebelot/kanagawa.nvim"
-  },
-  ["nvim-cmp"] = {
-    cond = { false },
-    loaded = false,
-    needs_bufread = false,
-    only_cond = true,
-    path = "/home/seabert/.local/share/nvim/site/pack/packer/opt/nvim-cmp",
-    url = "https://github.com/hrsh7th/nvim-cmp"
   },
   ["nvim-lint"] = {
     loaded = true,
@@ -177,16 +152,6 @@ _G.packer_plugins = {
 }
 
 time([[Defining packer_plugins]], false)
--- Conditional loads
-time([[Conditional loading of nvim-cmp]], true)
-  require("packer.load")({"nvim-cmp"}, {}, _G.packer_plugins)
-time([[Conditional loading of nvim-cmp]], false)
-time([[Conditional loading of LuaSnip]], true)
-  require("packer.load")({"LuaSnip"}, {}, _G.packer_plugins)
-time([[Conditional loading of LuaSnip]], false)
-time([[Conditional loading of cmp-nvim-lsp]], true)
-  require("packer.load")({"cmp-nvim-lsp"}, {}, _G.packer_plugins)
-time([[Conditional loading of cmp-nvim-lsp]], false)
 
 _G._packer.inside_compile = false
 if _G._packer.needs_bufread == true then

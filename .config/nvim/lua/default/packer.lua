@@ -19,17 +19,6 @@ return require('packer').startup(function(use)
 
 	use { "mfussenegger/nvim-lint" }
 
-	-- use {"williamboman/mason.nvim", cond = false}
-	-- use {"williamboman/mason-lspconfig.nvim", cond=false}
-	-- use {"neovim/nvim-lspconfig", cond=false}
-
-	use { "hrsh7th/nvim-cmp", cond = false }
-	use { "hrsh7th/cmp-nvim-lsp", cond = false }
-	-- this is mandatory for nvim-cmp
-	use { "L3MON4D3/LuaSnip", cond = false }
-
-	-- use {"VonHeikemen/lsp-zero.nvim", { ["branch"] = "v3.x" }, cond=false}
-
 	use { "tpope/vim-fugitive" }
 
 	use { "airblade/vim-gitgutter" }

@@ -16,6 +16,7 @@ require("nvim-treesitter.configs").setup({
 		"css",
 		"python",
 		"nix",
+		"swift",
 	},
 
 	-- Install parsers synchronously (only applied to `ensure_installed`)

@@ -63,21 +63,23 @@ vim.api.nvim_create_autocmd({ "BufEnter", "FileType" }, {
         vim.lsp.buf_attach_client(0, biome_client_id)
       end
     end
-    local tls_client_id = vim.lsp.start({
-      name = 'typescript-language-server',
-      cmd = { 'typescript-language-server', '--stdio' },
-      root_dir = vim.fs.dirname(vim.fs.find({ "package.json" }, { upward = true })[1]),
-      -- on_attach = function(client, bufnr)
-      --   vim.lsp.completion.enable(true, client.id, bufnr, {
-      --     autotrigger = true,
-      --     convert = function(item)
-      --       return { abbr = item.label:gsub('%b()', '') }
-      --     end,
-      --   })
-      -- end,
-    })
-    if tls_client_id then
-      vim.lsp.buf_attach_client(0, tls_client_id)
+    if vim.fn.executable('typescript-language-server') == 1 then
+      local tls_client_id = vim.lsp.start({
+        name = 'typescript-language-server',
+        cmd = { 'typescript-language-server', '--stdio' },
+        root_dir = vim.fs.dirname(vim.fs.find({ "package.json" }, { upward = true })[1]),
+        -- on_attach = function(client, bufnr)
+        --   vim.lsp.completion.enable(true, client.id, bufnr, {
+        --     autotrigger = true,
+        --     convert = function(item)
+        --       return { abbr = item.label:gsub('%b()', '') }
+        --     end,
+        --   })
+        -- end,
+      })
+      if tls_client_id then
+        vim.lsp.buf_attach_client(0, tls_client_id)
+      end
     end
   end
 })
