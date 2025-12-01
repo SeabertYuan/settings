@@ -35,4 +35,13 @@ return require('packer').startup(function(use)
 	-- use {"rust-lang/rust.vim"}
 
 	use { "saghen/blink.cmp", tag = 'v1.*' }
+
+	use({
+		'MeanderingProgrammer/render-markdown.nvim',
+		after = { 'nvim-treesitter' },
+		requires = { 'nvim-tree/nvim-web-devicons', opt = true }, -- if you prefer nvim-web-devicons
+		-- config = function()
+		-- 	require('render-markdown').setup({})
+		-- end,
+	})
 end)
