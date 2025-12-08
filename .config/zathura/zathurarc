@@ -1,7 +1,0 @@
-set default-bg "#1F1F28"
-set default-fg "#DCD7BA"
-
-set highlight-active-color "rgba(163, 212, 213, 0.3)"
-set highlight-color "rgba(147, 138, 169, 0.3)"
-
-set selection-clipboard clipboard
