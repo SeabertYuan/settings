@@ -6,9 +6,11 @@
     nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.05";
     home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
+    dotfiles.url = "path:./dotfiles";
+    dotfiles.flake = false;
   };
 
-  outputs = {self, nixpkgs, home-manager, ... }@attrs: {
+  outputs = {self, nixpkgs, home-manager, dotfiles, ... }@attrs: {
       nixosConfigurations = {
         chocolatecarrot = nixpkgs.lib.nixosSystem {
           specialArgs = {inherit attrs;};
@@ -26,6 +28,7 @@
               home-manager.useGlobalPkgs= true;
               home-manager.useUserPackages = true;
               home-manager.users.seabert = import ./hosts/chocolatecarrot/home.nix;
+              home-manager.extraSpecialArgs = { inherit dotfiles; };
             }
           ];
         };
@@ -35,6 +38,7 @@
           pkgs = nixpkgs.legacyPackages.x86_64-linux;  # auto-detect?
           modules = [
             ./home/default.nix
+            { _module.args.dotfiles = dotfiles; }
           ];
         };
       };
