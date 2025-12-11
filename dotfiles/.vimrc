@@ -19,7 +19,7 @@ vmap K :m '<-2<CR>gv=gv
 map J mzJ`z
 
 "TODO: how to make this assert fzf.vim is installed
-map <c-P> :Files<CR>
+map <c-P> :GFiles<CR>
 
 "cpp
 map <leader>rm <cmd>!rustc % -o %:r<CR>

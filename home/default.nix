@@ -14,6 +14,10 @@ let
       rev = "2ab923f3ae04d5e915e5ff4a9cd3bd515bfd1ea5";
       ref = "refs/tags/0.67.0";
     };
+    fugitive = builtins.fetchGit {
+      url = "https://github.com/tpope/vim-fugitive";
+      rev = "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4";
+    };
   };
 in
 {
@@ -69,6 +73,8 @@ in
     yazi
     mediainfo # for a plugin for yazi
     # dev
+    vim
+    tmux
     neovim
     rustup
     jdk
