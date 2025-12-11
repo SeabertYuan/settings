@@ -42,8 +42,6 @@ in
 
       export XDG_CURRENT_DESKTOP=sway
 
-      export EDITOR=nvim
-
       export UV_PYTHON_DOWNLOADS=never
     '';
   };

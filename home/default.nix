@@ -1,4 +1,21 @@
 { config, pkgs, dotfiles, ... }:
+let
+  vimPlugins = {
+    seoul256 = builtins.fetchGit {
+      url = "https://github.com/junegunn/seoul256.vim";
+      rev = "d9a91d8d4e153274e1ecc0ceb05c37f0d0de84d7";
+    };
+    fzf-vim = builtins.fetchGit {
+      url = "https://github.com/junegunn/fzf.vim";
+      rev = "ddc14a6a5471147e2a38e6b32a7268282f669b0a";
+    };
+    fzf = builtins.fetchGit {
+      url = "https://github.com/junegunn/fzf";
+      rev = "2ab923f3ae04d5e915e5ff4a9cd3bd515bfd1ea5";
+      ref = "refs/tags/0.67.0";
+    };
+  };
+in
 {
   # Home Manager needs a bit of information about you and the paths it should
   # manage.
@@ -48,6 +65,7 @@
 
   home.packages = with pkgs; [
     # utilties
+    fzf
     yazi
     mediainfo # for a plugin for yazi
     # dev
@@ -62,8 +80,27 @@
   # Home Manager is pretty good at managing dotfiles. The primary way to manage
   # plain files is through 'home.file'.
   home.file = {
-    ".config/nvim".source = "${dotfiles}/nvim";
-    ".config/tmux".source = "${dotfiles}/tmux";
+    ".config/nvim" = {
+      source = "${dotfiles}/nvim";
+      force = true;
+    };
+    ".config/tmux" = {
+      source = "${dotfiles}/tmux";
+      force = true;
+    };
+    ".vimrc".source = "${dotfiles}/.vimrc";
+    ".vim/pack/colours/start/seoul256.vim" = {
+      source = vimPlugins.seoul256;
+      recursive = true;
+    };
+    ".vim/pack/utils/start/fzf" = {
+      source = vimPlugins.fzf;
+      recursive = true;
+    };
+    ".vim/pack/utils/start/fzf.vim" = {
+      source = vimPlugins.fzf-vim;
+      recursive = true;
+    };
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
@@ -93,7 +130,7 @@
   #  /etc/profiles/per-user/seabert/etc/profile.d/hm-session-vars.sh
   #
   home.sessionVariables = {
-    EDITOR = "nvim";
+    EDITOR = "vim";
   };
 
   # Let Home Manager install and manage itself.

@@ -16,8 +16,8 @@
   fonts.fontconfig = {
     enable = true;
     defaultFonts = {
-      serif = [ "Source Serif" ];
-      sansSerif = [ "Source Sans" ];
+      serif = [ "Source Serif 4" ];
+      sansSerif = [ "Source Sans 3" ];
       monospace = [ "JetBrainsMono NFP" ];
       emoji = [ "Noto Color Emoji" ];
     };
@@ -25,20 +25,12 @@
 
   gtk = {
     enable = true;
-    # iconTheme = {
-    #   name = "Adwaita";          # Match the theme's internal name
-    #   package = pkgs.adwaita-icon-theme;
-    # };
-    # cursorTheme = {
-    #   name = "Adwaita";          # Match the theme's internal name
-    #   package = pkgs.adwaita-icon-theme;
-    # };
     gtk2.extraConfig = ''
       gtk-im-module="fcitx"
     '';
     gtk3.extraConfig = {
       gtk-im-module="fcitx";
-      gtk-font-name="Source Sans 11";
+      gtk-font-name="Source Sans 3 11";
     };
   };
 

@@ -169,7 +169,7 @@
   programs.thunderbird.enable = true;
   programs.firefox.enable = true;
 
-  programs.neovim = {
+  programs.vim = {
     enable = true;
     defaultEditor = true;
   };
@@ -177,6 +177,7 @@
   # List packages installed in system profile. To search, run:
   # $ nix search wget
   environment.systemPackages = with pkgs; [
+    vim
     neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     tmux
     git
