@@ -6,6 +6,7 @@ set splitbelow
 set nu
 set cursorline
 set cursorcolumn
+set colorcolumn=80
 
 set scrolloff=7
 
@@ -13,10 +14,17 @@ set pumheight=7
 
 set laststatus=2
 
+set hlsearch
+
+set statusline=%<%h%m%r%{FugitiveStatusline()}\ %f%=%-14.(%l,%c%V%)\ %P
+
+set shortmess-=S
+
 vmap J :m '>+1<CR>gv=gv
 vmap K :m '<-2<CR>gv=gv
 
-map J mzJ`z
+"non-recursive map
+nnoremap J mzJ`z
 
 "TODO: how to make this assert fzf.vim is installed
 map <c-P> :GFiles<CR>

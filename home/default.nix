@@ -14,9 +14,13 @@ let
       rev = "2ab923f3ae04d5e915e5ff4a9cd3bd515bfd1ea5";
       ref = "refs/tags/0.67.0";
     };
-    fugitive = builtins.fetchGit {
+    vim-fugitive = builtins.fetchGit {
       url = "https://github.com/tpope/vim-fugitive";
       rev = "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4";
+    };
+    vimtex = builtins.fetchGit {
+      url = "https://github.com/lervag/vimtex";
+      rev = "2e1bbabeb2c34bb17d7bc8cfdf8f95b16dd0db0c";
     };
   };
 in
@@ -55,6 +59,12 @@ in
     '';
   };
 
+  programs.git = {
+    enable = true;
+    userEmail = "seabert.s.yuan23z@gmail.com";
+    userName = "SeabertYuan";
+  };
+
   # This value determines the Home Manager release that your configuration is
   # compatible with. This helps avoid breakage when a new Home Manager release
   # introduces backwards incompatible changes.
@@ -70,6 +80,7 @@ in
   home.packages = with pkgs; [
     # utilties
     fzf
+    ripgrep
     yazi
     mediainfo # for a plugin for yazi
     # dev
@@ -107,6 +118,14 @@ in
       source = vimPlugins.fzf-vim;
       recursive = true;
     };
+    ".vim/pack/utils/start/fugitive.vim" = {
+      source = vimPlugins.vim-fugitive;
+      recursive = true;
+    };
+    ".vim/pack/utils/start/vimtex" = {
+      source = vimPlugins.vimtex;
+      recursive = true;
+    };
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
     # # the Nix store. Activating the configuration will then make '~/.screenrc' a
     # # symlink to the Nix store copy.
@@ -137,6 +156,7 @@ in
   #
   home.sessionVariables = {
     EDITOR = "vim";
+    FZF_DEFAULT_OPTS="--reverse";
   };
 
   # Let Home Manager install and manage itself.
