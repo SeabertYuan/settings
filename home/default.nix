@@ -22,6 +22,10 @@ let
       url = "https://github.com/lervag/vimtex";
       rev = "2e1bbabeb2c34bb17d7bc8cfdf8f95b16dd0db0c";
     };
+    vim-sleuth =  builtins.fetchGit {
+      url = "https://github.com/tpope/vim-sleuth";
+      rev = "be69bff86754b1aa5adcbb527d7fcd1635a84080";
+    };
   };
 in
 {
@@ -35,7 +39,7 @@ in
     enableCompletion = true;
     shellAliases = {
       ls="ls --color=auto";
-      grep="grep --color=auto";
+      grep="rg";
       gt="sh ~/scripts/generate-template.sh";
       eww="~/builds/eww/target/release/eww";
       dotfiles="git --git-dir=\"$HOME/.dotfiles-git\" --work-tree=\"$HOME\"";
@@ -45,8 +49,10 @@ in
 
       PS1='[\u@\h \W]\$ '
 
-      PATH=~/.local/bin:$PATH
-      
+      SUDO_EDITOR=vim
+
+      FZF_DEFAULT_OPTS=--reverse
+
       # to allow yazi to exit into selected file path
       function yy() {
         local tmp="$(mktemp -t "yazi-cwd.XXXXXX")"
@@ -61,6 +67,7 @@ in
 
   programs.git = {
     enable = true;
+    lfs.enable = true;
     userEmail = "seabert.s.yuan23z@gmail.com";
     userName = "SeabertYuan";
   };
@@ -84,7 +91,7 @@ in
     yazi
     mediainfo # for a plugin for yazi
     # dev
-    vim
+    vim_configurable
     tmux
     neovim
     rustup
@@ -124,6 +131,10 @@ in
     };
     ".vim/pack/utils/start/vimtex" = {
       source = vimPlugins.vimtex;
+      recursive = true;
+    };
+    ".vim/pack/utils/start/sleuth.vim" = {
+      source = vimPlugins.vim-sleuth;
       recursive = true;
     };
     # # Building this configuration will create a copy of 'dotfiles/screenrc' in
