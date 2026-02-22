@@ -51,7 +51,6 @@ in
 
       SUDO_EDITOR=vim
 
-      FZF_DEFAULT_OPTS=--reverse
       PATH="~/.local/bin:$PATH"
 
       # to allow yazi to exit into selected file path
