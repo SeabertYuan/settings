@@ -42,14 +42,12 @@ in
       grep="rg";
       gt="sh ~/scripts/generate-template.sh";
       eww="~/builds/eww/target/release/eww";
-      dotfiles="git --git-dir=\"$HOME/.dotfiles-git\" --work-tree=\"$HOME\"";
+      dotfiles="git --git-dir=\"$HOME/.dotfiles-git\" --work-tree=\"$HOME/.dotfiles\"";
     };
     initExtra = ''
       eval "$(fzf --bash)"
 
       PS1='[\u@\h \W]\$ '
-
-      SUDO_EDITOR=vim
 
       PATH="~/.local/bin:$PATH"
 
@@ -68,8 +66,10 @@ in
   programs.git = {
     enable = true;
     lfs.enable = true;
-    userEmail = "seabert.s.yuan23z@gmail.com";
-    userName = "SeabertYuan";
+    settings.user = {
+      mail = "seabert.s.yuan23z@gmail.com";
+      name = "SeabertYuan";
+    };
   };
 
   # This value determines the Home Manager release that your configuration is
@@ -91,13 +91,9 @@ in
     yazi
     mediainfo # for a plugin for yazi
     # dev
-    vim_configurable
+    vim-full
     tmux
     neovim
-    rustup
-    jdk
-    python3
-    nodejs_22
     tree-sitter
   ];
 
@@ -172,6 +168,7 @@ in
   home.sessionVariables = {
     EDITOR = "vim";
     FZF_DEFAULT_OPTS="--reverse";
+    SUDO_EDITOR = "vim";
   };
 
   # Let Home Manager install and manage itself.

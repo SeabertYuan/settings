@@ -3,7 +3,7 @@ source $VIMRUNTIME/defaults.vim
 set nowrap
 set splitbelow
 
-set rnu
+set nu rnu
 set cursorline
 set cursorcolumn
 set colorcolumn=80

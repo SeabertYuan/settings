@@ -29,21 +29,32 @@ in
     ../../home/gui.nix
   ];
 
-  programs.bash = {
-    profileExtra = ''
-      [[ -f ~/.bashrc ]] && . ~/.bashrc
+  # programs.bash = {
+  #   profileExtra = ''
+  #     [[ -f ~/.bashrc ]] && . ~/.bashrc
 
-      eval "$(luarocks path)"
+  #     #for IME support
+  #     # export QT_IM_MODULE=fcitx
 
-      #for IME support
-      export XMODIFIERS=@im=fcitx
-      # export QT_IM_MODULE=fcitx
-      export GLFW_IM_MODULE=ibus
+  #     export XDG_CURRENT_DESKTOP=sway
 
-      export XDG_CURRENT_DESKTOP=sway
+  #     export UV_PYTHON_DOWNLOADS=never
+  #   '';
+  # };
 
-      export UV_PYTHON_DOWNLOADS=never
-    '';
+  home.sessionVariables = {
+    XMODIFIERS="@im=fcitx";
+    GLFW_IM_MODULE = "ibus";
+  };
+
+  programs.firefox = {
+    enable = true;
+    profiles.default = {
+      settings = {
+        "network.protocol-handler.external.spotify" = true;
+        "network.protocol-handler.warn-external.spotify" = false;
+      };
+    };
   };
 
   home.packages = with pkgs; [
@@ -51,41 +62,21 @@ in
     obsidian
     spotify
     discord
-    # utilties
-    grim
-    slurp
-    wl-clipboard
-    yazi
-    mediainfo # for a plugin for yazi
-    fzf
-    bc
+    claude-code
     # apps
+    chromium
+    # dependency for brightness/audio
+    bc
     signal-desktop
     zathura
     mpv
-    feh
     qimgv
     obs-studio
     darktable
     audacity
     anki
-    ardour
     blender
     easyeffects # EQ
-    # dev
-    rustup
-    jdk
-    python3
-    luajit
-    luarocks # luacheck for nvim
-    nodejs_22
-    tree-sitter
-    uv
-    # biome
-    # rust-analyzer
-    lua-language-server
-    jdt-language-server
-
   ];
 
   # some nice services

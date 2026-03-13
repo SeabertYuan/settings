@@ -3,8 +3,8 @@
 
   inputs = {
     nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.05";
-    home-manager.url = "github:nix-community/home-manager";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-25.11";
+    home-manager.url = "github:nix-community/home-manager/release-25.11";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     dotfiles.url = "path:./dotfiles";
     dotfiles.flake = false;

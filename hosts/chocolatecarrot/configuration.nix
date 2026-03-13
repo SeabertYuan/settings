@@ -57,7 +57,7 @@
     type = "fcitx5";
     enable = true;
     fcitx5.addons  = with pkgs; [
-      fcitx5-chinese-addons
+      qt6Packages.fcitx5-chinese-addons
       fcitx5-mozc-ut
       fcitx5-hangul
     ];
@@ -78,6 +78,9 @@
 
   services.tlp.enable = true; 
 
+  # docker
+  virtualisation.docker.enable = true;
+
   # Configure keymap in X11
   # services.xserver.xkb.layout = "us";
   # services.xserver.xkb.options = "eurosign:e,caps:escape";
@@ -89,10 +92,19 @@
   # hardware.pulseaudio.enable = true;
   # OR
   security.rtkit.enable = true;
+
   services.pipewire = {
     enable = true;
     alsa.enable = true;
     pulse.enable = true;
+    wireplumber.extraConfig.bluetoothEnhancements = {
+      "monitor.bluez.properties" = {
+	  "bluez5.enable-sbc-xq" = true;
+	  "bluez5.enable-msbc" = true;
+	  "bluez5.enable-hw-volume" = true;
+	  "bluez5.roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
+      };
+    };
   };
 
   # Enable touchpad support (enabled default in most desktopManager).
@@ -102,8 +114,9 @@
   users.users.seabert = {
     isNormalUser = true;
     home = "/home/seabert";
-    extraGroups = [ "wheel" "libvirtd" "kvm" "i2c"]; # Enable ‘sudo’ for the user.
+    extraGroups = [ "wheel" "libvirtd" "kvm" "i2c" "docker"]; # Enable ‘sudo’ for the user.
     packages = with pkgs; [
+      # TODO: this stuff is dependencies for stuff I need to move to home-manager
       # utilities
       playerctl
       pavucontrol # I'm too dumb to figure out cmdline but i want to
@@ -129,6 +142,12 @@
       swayidle
       swaylock
       wmenu
+      #clipboard
+      grim
+      slurp
+      wl-clipboard
+      # background
+      feh
     ];
   };
 
@@ -178,7 +197,6 @@
   # $ nix search wget
   environment.systemPackages = with pkgs; [
     vim
-    neovim # Do not forget to add an editor to edit configuration.nix! The Nano editor is also installed by default.
     tmux
     git
     ripgrep
@@ -286,4 +304,3 @@
   system.stateVersion = "24.11"; # Did you read the comment?
 
 }
-
