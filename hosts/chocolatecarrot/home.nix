@@ -29,6 +29,8 @@ in
     ../../home/gui.nix
   ];
 
+  home.homeDirectory = "/home/seabert";
+
   # programs.bash = {
   #   profileExtra = ''
   #     [[ -f ~/.bashrc ]] && . ~/.bashrc

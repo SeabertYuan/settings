@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 {
   home.packages = with pkgs; [
+    # fonts
     noto-fonts
     noto-fonts-cjk-sans
     noto-fonts-color-emoji
@@ -9,8 +10,18 @@
     nerd-fonts.jetbrains-mono
     source-sans
     source-serif
+  ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
     # icon theme
     adwaita-icon-theme
+    # unfree apps
+    spotify
+    discord
+    # apps
+    # chromium
+    thunderbird
+    signal-desktop
+    zathura
+    mpv
   ];
 
   fonts.fontconfig = {

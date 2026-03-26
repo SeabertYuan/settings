@@ -20,6 +20,8 @@ set statusline=%<%h%m%r%{FugitiveStatusline()}\ %f%=%-14.(%l,%c%V%)\ %P
 
 set shortmess-=S
 
+set clipboard=unnamed,unnamedplus
+
 vmap J :m '>+1<CR>gv=gv
 vmap K :m '<-2<CR>gv=gv
 

@@ -1,4 +1,4 @@
-{ config, pkgs, dotfiles, ... }:
+{ config, pkgs, lib, dotfiles, ... }:
 let
   vimPlugins = {
     seoul256 = builtins.fetchGit {
@@ -29,10 +29,13 @@ let
   };
 in
 {
-  # Home Manager needs a bit of information about you and the paths it should
-  # manage.
   home.username = "seabert";
-  home.homeDirectory = "/home/seabert";
+  home.homeDirectory = "/Users/seabert";
+
+  nix = {
+    package = lib.mkDefault pkgs.nix;
+    settings.experimental-features = [ "nix-command" "flakes" ];
+  };
 
   programs.bash = {
     enable = true;
@@ -67,7 +70,7 @@ in
     enable = true;
     lfs.enable = true;
     settings.user = {
-      mail = "seabert.s.yuan23z@gmail.com";
+      email = "seabert.s.yuan23z@gmail.com";
       name = "SeabertYuan";
     };
   };
@@ -91,7 +94,15 @@ in
     yazi
     mediainfo # for a plugin for yazi
     # dev
-    vim-full
+    claude-code
+    codex
+    (if pkgs.stdenv.isDarwin then
+      pkgs.vim-full.override {
+        guiSupport = false;
+        darwinSupport = true;
+      }
+    else
+      pkgs.vim-full)
     tmux
     neovim
     tree-sitter
