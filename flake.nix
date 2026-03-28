@@ -56,8 +56,28 @@
       };
       homeConfigurations = {
         default = home-manager.lib.homeManagerConfiguration {
-          pkgs = nixpkgs.legacyPackages.x86_64-linux;  # auto-detect?
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config = {
+              allowUnfree = true;
+              allowUnfreePredicate = (_: true);
+            };
+          };
           modules = [
+            ./home/default.nix
+            { _module.args.dotfiles = dotfiles; }
+          ];
+        };
+        gui = home-manager.lib.homeManagerConfiguration {
+          pkgs = import nixpkgs {
+            system = "x86_64-linux";
+            config = {
+              allowUnfree = true;
+              allowUnfreePredicate = (_: true);
+            };
+          };
+          modules = [
+            ./home/gui.nix
             ./home/default.nix
             { _module.args.dotfiles = dotfiles; }
           ];

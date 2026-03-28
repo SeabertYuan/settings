@@ -1,5 +1,7 @@
 { config, pkgs, ... }:
 {
+  my.vim.package = pkgs.vim-full;
+
   home.packages = with pkgs; [
     # fonts
     noto-fonts
@@ -17,7 +19,7 @@
     spotify
     discord
     # apps
-    # chromium
+    chromium
     thunderbird
     signal-desktop
     zathura
