@@ -104,19 +104,24 @@ in
       yazi
       mediainfo # for a plugin for yazi
       # dev
-      claude-code
-      codex
-      (if pkgs.stdenv.isDarwin then
-        pkgs.vim-full.override {
-          guiSupport = false;
-          darwinSupport = true;
-        }
-      else
-        config.my.vim.package)
       tmux
       neovim
       tree-sitter
-    ];
+    ]
+    ++ (if pkgs.stdenv.isDarwin then
+      [
+        (vim-full.override {
+          guiSupport = false;
+          darwinSupport = true;
+        })
+      ]
+    else
+      [
+        claude-code
+        codex
+        config.my.vim.package
+      ]
+    );
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
     # plain files is through 'home.file'.

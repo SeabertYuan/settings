@@ -19,6 +19,8 @@
       upgrade = true;
     };
     casks = [
+      "claude-code"
+      "codex"
       "slack"
       "beekeeper-studio"
       "blender"
