@@ -1,5 +1,7 @@
 source $VIMRUNTIME/defaults.vim
 
+syntax on
+
 set nowrap
 set splitbelow
 
@@ -19,8 +21,6 @@ set hlsearch
 set statusline=%<%h%m%r%{FugitiveStatusline()}\ %f%=%-14.(%l,%c%V%)\ %P
 
 set shortmess-=S
-
-set clipboard=unnamed,unnamedplus
 
 vmap J :m '>+1<CR>gv=gv
 vmap K :m '<-2<CR>gv=gv

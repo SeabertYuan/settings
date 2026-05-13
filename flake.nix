@@ -8,14 +8,21 @@
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
     nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-25.11";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
+
     dotfiles.url = "path:./dotfiles";
     dotfiles.flake = false;
+
+    opencode.url = "github:anomalyco/opencode";
+    wezterm.url = "github:wezterm/wezterm?dir=nix";
   };
 
-  outputs = {self, nixpkgs, home-manager, nix-darwin, dotfiles, ... }@attrs: {
+  outputs = inputs @ {self, nixpkgs, home-manager, nix-darwin, ... }: 
+  let
+    opencodePkg = system: inputs.opencode.packages.${system}.default;
+  in {
       nixosConfigurations = {
         chocolatecarrot = nixpkgs.lib.nixosSystem {
-          specialArgs = {inherit attrs;};
+          specialArgs = {inherit inputs;};
           pkgs = import nixpkgs {
             system = "x86_64-linux";
             config = {
@@ -30,7 +37,7 @@
               home-manager.useGlobalPkgs= true;
               home-manager.useUserPackages = true;
               home-manager.users.seabert = import ./hosts/chocolatecarrot/home.nix;
-              home-manager.extraSpecialArgs = { inherit dotfiles; };
+              home-manager.extraSpecialArgs = { inherit inputs; };
             }
           ];
         };
@@ -43,14 +50,14 @@
             config.allowUnfree = true;
           };
           modules = [
-            ./hosts/caramelapple/configuration.nix
             home-manager.darwinModules.home-manager
             {
               home-manager.useGlobalPkgs = true;
               home-manager.useUserPackages = true;
               home-manager.users.seabert = import ./hosts/caramelapple/home.nix;
-              home-manager.extraSpecialArgs = { inherit dotfiles; };
+              home-manager.extraSpecialArgs = { inherit inputs; };
             }
+            ./hosts/caramelapple/configuration.nix
           ];
         };
       };
@@ -65,8 +72,8 @@
           };
           modules = [
             ./home/default.nix
-            { _module.args.dotfiles = dotfiles; }
           ];
+          extraSpecialArgs = { inherit inputs; };
         };
         gui = home-manager.lib.homeManagerConfiguration {
           pkgs = import nixpkgs {
@@ -79,8 +86,8 @@
           modules = [
             ./home/gui.nix
             ./home/default.nix
-            { _module.args.dotfiles = dotfiles; }
           ];
+          extraSpecialArgs = { inherit inputs; };
         };
       };
     };

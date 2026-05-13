@@ -11,6 +11,11 @@
   environment.shells = [ pkgs.bash ];
   users.users.seabert.shell = pkgs.bash;
 
+  environment.systemPath = [
+    "/opt/homebrew/bin"
+    "/opt/homebrew/sbin"
+  ];
+
   homebrew = {
     enable = true;
     onActivation = {
@@ -18,12 +23,17 @@
       autoUpdate = true;
       upgrade = true;
     };
+    brews = [
+      "sccache"
+    ];
     casks = [
-      "claude-code"
+      "nordvpn"
+      "wezterm@nightly"
       "codex"
       "slack"
       "beekeeper-studio"
       "blender"
+      "gimp"
       "maccy"
       "orbstack"
       "thunderbird"

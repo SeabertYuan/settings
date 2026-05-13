@@ -1,4 +1,4 @@
-{ config, pkgs, lib, dotfiles, ... }:
+{ inputs, pkgs, lib, config, ... }:
 let
   vimPlugins = {
     seoul256 = builtins.fetchGit {
@@ -46,22 +46,24 @@ in
       settings.experimental-features = [ "nix-command" "flakes" ];
     };
 
+    # TODO: clean this up
     programs.bash = {
       enable = true;
-      enableCompletion = true;
       shellAliases = {
-        ls="ls --color=auto";
+        docker="podman";
+        dotfiles="git --git-dir=\"$HOME/.dotfiles-git\" --work-tree=\"$HOME/.dotfiles\"";
+        eww="~/builds/eww/target/release/eww";
         grep="rg";
         gt="sh ~/scripts/generate-template.sh";
-        eww="~/builds/eww/target/release/eww";
-        dotfiles="git --git-dir=\"$HOME/.dotfiles-git\" --work-tree=\"$HOME/.dotfiles\"";
+        ls="ls --color=auto";
       };
       initExtra = ''
         eval "$(fzf --bash)"
 
         PS1='[\u@\h \W]\$ '
 
-        PATH="~/.local/bin:$PATH"
+        PATH="~/.cargo/bin:~/.local/bin:$PATH"
+        PROMPT_COMMAND='echo -ne "\033]0;''${PWD##*/}\007"'
 
         # to allow yazi to exit into selected file path
         function yy() {
@@ -78,9 +80,16 @@ in
     programs.git = {
       enable = true;
       lfs.enable = true;
-      settings.user = {
-        email = "seabert.s.yuan23z@gmail.com";
-        name = "SeabertYuan";
+      settings = {
+        user = {
+          email = "seabert.s.yuan23z@gmail.com";
+          name = "SeabertYuan";
+        };
+        url = {
+          "git@github.com:" = {
+            insteadOf = "https://github.com/";
+          };
+        };
       };
     };
 
@@ -96,6 +105,15 @@ in
     # The home.packages option allows you to install Nix packages into your
     # environment.
 
+    programs.opencode = {
+      enable = true;
+      package = inputs.opencode.packages.${pkgs.system}.default;
+    };
+
+    programs.wezterm = lib.mkIf (!pkgs.stdenv.isDarwin) {
+      enable = true;
+      package = inputs.wezterm.packages.${pkgs.system}.default;
+    };
 
     home.packages = with pkgs; [
       # utilties
@@ -107,6 +125,7 @@ in
       tmux
       neovim
       tree-sitter
+      podman
     ]
     ++ (if pkgs.stdenv.isDarwin then
       [
@@ -117,6 +136,7 @@ in
       ]
     else
       [
+        wezterm
         claude-code
         codex
         config.my.vim.package
@@ -125,13 +145,13 @@ in
 
     # Home Manager is pretty good at managing dotfiles. The primary way to manage
     # plain files is through 'home.file'.
-    home.file = {
+    home.file = let inherit (inputs) dotfiles; in {
       ".config/nvim" = {
         source = "${dotfiles}/nvim";
         force = true;
       };
-      ".config/tmux" = {
-        source = "${dotfiles}/tmux";
+      ".config/tmux/tmux.conf" = {
+        source = "${dotfiles}/tmux/tmux.conf";
         force = true;
       };
       ".config/yazi" = {
@@ -163,6 +183,19 @@ in
         source = vimPlugins.vim-sleuth;
         recursive = true;
       };
+      ".config/wezterm" = {
+        source = "${dotfiles}/wezterm";
+        recursive = true;
+        force = true;
+      };
+      # TODO: don't hardcode this to homebrew lmao
+      ".cargo/config.toml".text = ''
+        [net]
+        git-fetch-with-cli = true
+
+        # [build]
+        # rustc-wrapper = "/opt/homebrew/bin/sccache"
+      '';
       # # Building this configuration will create a copy of 'dotfiles/screenrc' in
       # # the Nix store. Activating the configuration will then make '~/.screenrc' a
       # # symlink to the Nix store copy.
