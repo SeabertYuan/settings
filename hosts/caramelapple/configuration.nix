@@ -25,10 +25,12 @@
     };
     brews = [
       "sccache"
+      "pi-coding-agent"
+      "podman"
     ];
     casks = [
+      "anki"
       "nordvpn"
-      "wezterm@nightly"
       "codex"
       "slack"
       "beekeeper-studio"
@@ -36,6 +38,7 @@
       "gimp"
       "maccy"
       "orbstack"
+      "podman-desktop"
       "thunderbird"
       "spotify"
       "discord"

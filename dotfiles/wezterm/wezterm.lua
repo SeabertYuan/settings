@@ -116,10 +116,12 @@ config.unix_domains = {
   { name = 'unix' },
 }
 
-config.default_gui_startup_args = { 'connect', 'unix' }
+config.color_scheme = 'Seoul256 (Gogh)'
 
 config.initial_cols = 190
 config.initial_rows = 50
+
+config.scrollback_lines = 4723
 
 config.inactive_pane_hsb = {
   saturation = 0.7,

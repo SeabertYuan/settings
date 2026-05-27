@@ -1,6 +1,11 @@
 source $VIMRUNTIME/defaults.vim
 
+set regexpengine=0
 syntax on
+
+set ttimeoutlen=10
+
+set termguicolors
 
 set nowrap
 set splitbelow
@@ -17,6 +22,7 @@ set pumheight=7
 set laststatus=2
 
 set hlsearch
+set incsearch
 
 set statusline=%<%h%m%r%{FugitiveStatusline()}\ %f%=%-14.(%l,%c%V%)\ %P
 

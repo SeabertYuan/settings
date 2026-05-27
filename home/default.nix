@@ -125,7 +125,6 @@ in
       tmux
       neovim
       tree-sitter
-      podman
     ]
     ++ (if pkgs.stdenv.isDarwin then
       [
@@ -136,7 +135,7 @@ in
       ]
     else
       [
-        wezterm
+        podman
         claude-code
         codex
         config.my.vim.package
