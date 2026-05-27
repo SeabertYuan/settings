@@ -110,7 +110,7 @@ in
       package = inputs.opencode.packages.${pkgs.system}.default;
     };
 
-    programs.wezterm = lib.mkIf (!pkgs.stdenv.isDarwin) {
+    programs.wezterm = {
       enable = true;
       package = inputs.wezterm.packages.${pkgs.system}.default;
     };
