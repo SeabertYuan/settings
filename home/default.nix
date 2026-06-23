@@ -105,14 +105,9 @@ in
     # The home.packages option allows you to install Nix packages into your
     # environment.
 
-    programs.opencode = {
-      enable = true;
-      package = inputs.opencode.packages.${pkgs.system}.default;
-    };
-
     programs.wezterm = {
       enable = true;
-      package = inputs.wezterm.packages.${pkgs.system}.default;
+      package = inputs.wezterm.packages.${pkgs.stdenv.hostPlatform.system}.default;
     };
 
     home.packages = with pkgs; [

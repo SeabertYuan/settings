@@ -34,6 +34,78 @@
   # networking.networkmanager.enable = true;  # Easiest to use and most distros use this by default.
   networking.wireless.iwd.enable = true;
   networking.nftables.enable = true;
+  networking.useNetworkd = true;
+
+  # Open ports in the firewall.
+  networking.firewall = {
+    allowedTCPPorts = [ 57621 ];
+    interfaces.wg0.allowedTCPPorts = [ 22 ];
+    allowedUDPPorts = [ 51820 5353 ];
+  };
+
+  systemd.network = {
+    enable = true;
+    networks."50-wg0" = {
+      matchConfig.Name = "wg0";
+      address = [ "10.100.0.1/24" ];
+
+      networkConfig = {
+	IPv4Forwarding = true;
+	IPv6Forwarding = true;
+      };
+    };
+
+    netdevs."50-wg0" = {
+      netdevConfig = {
+        Kind = "wireguard";
+        Name = "wg0";
+      };
+
+      wireguardConfig = {
+        ListenPort = 51820;
+
+        # ensure file is readable by `systemd-network` user
+        PrivateKeyFile = config.age.secrets.wg-key-chocolatecarrot.path;
+
+        # To automatically create routes for everything in AllowedIPs,
+        # add RouteTable=main
+        RouteTable = "main";
+
+        # FirewallMark marks all packets send and received by wg0
+        # with the number 42, which can be used to define policy rules on these packets.
+        FirewallMark = 42;
+      };
+      wireguardPeers = [
+        {
+          # laptop wg conf
+          PublicKey = "x3GvdXo1EN6j8kHFLFdwwjWUTOit8dOyxdpsYSg10Xo=";
+          AllowedIPs = [ "10.100.0.2/32" ];
+
+          # RouteTable can also be set in wireguardPeers
+          # RouteTable in wireguardConfig will then be ignored.
+          # RouteTable = 1000;
+        }
+      ];
+    };
+  };
+
+  services.openssh = {
+    enable = true;
+    openFirewall = false;
+    settings = {
+      PasswordAuthentication = false;
+      KbdInteractiveAuthentication = false;
+      PermitRootLogin = "no";
+    };
+  };
+
+  age.secrets.wg-key-chocolatecarrot = {
+    file = ../../secrets/wg-key-chocolatecarrot.age;
+    owner = "systemd-network";
+    group = "systemd-network";
+    mode = "0400";
+  };
+
 
   # Set your time zone.
   time.timeZone = "Canada/Pacific";
@@ -126,11 +198,26 @@
       pplatex # better latex errors
       ddcutil # external monitor brightness
     ];
+    openssh.authorizedKeys.keys = [
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEI6uHkTas/JiM7YNAGBfXbUSpiVZEM5N7qXv2WSQVMc seabert@Seaberts-MacBook-Pro.local"
+    ];
   };
 
   services.gnome.gnome-keyring.enable = true;
 
   security.polkit.enable = true;
+
+  security.sudo.extraRules = [
+    {
+      users = [ "seabert" ];
+      commands = [
+	{
+	  command = "ALL";
+	  options = [ "NOPASSWD" ];
+	}
+      ];
+    }
+  ];
 
   programs.sway = {
     enable = true;
@@ -191,6 +278,11 @@
   programs.vim = {
     enable = true;
     defaultEditor = true;
+  };
+
+  nix.settings = {
+    substituters = ["https://wezterm.cachix.org"];
+    trusted-public-keys = ["wezterm.cachix.org-1:kAbhjYUC9qvblTE+s7S+kl5XM1zVa4skO+E/1IDWdH0="];
   };
 
   # List packages installed in system profile. To search, run:
@@ -272,12 +364,6 @@
 
   # Enable the OpenSSH daemon.
   # services.openssh.enable = true;
-
-  # Open ports in the firewall.
-  networking.firewall.allowedTCPPorts = [ 57621 ];
-  networking.firewall.allowedUDPPorts = [ 5353 ];
-  # Or disable the firewall altogether.
-  # networking.firewall.enable = false;
 
   # Copy the NixOS configuration file and link it from the resulting system
   # (/run/current-system/configuration.nix). This is useful in case you

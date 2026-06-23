@@ -12,14 +12,13 @@
     dotfiles.url = "path:./dotfiles";
     dotfiles.flake = false;
 
-    opencode.url = "github:anomalyco/opencode";
     wezterm.url = "github:wezterm/wezterm?dir=nix";
+
+    agenix.url = "github:ryantm/agenix";
+    agenix.inputs.nixpkgs.follows = "nixpkgs";
   };
 
-  outputs = inputs @ {self, nixpkgs, home-manager, nix-darwin, ... }: 
-  let
-    opencodePkg = system: inputs.opencode.packages.${system}.default;
-  in {
+  outputs = inputs @ {self, nixpkgs, home-manager, nix-darwin, ... }:{
       nixosConfigurations = {
         chocolatecarrot = nixpkgs.lib.nixosSystem {
           specialArgs = {inherit inputs;};
@@ -31,6 +30,7 @@
             };
           };
           modules = [
+            inputs.agenix.nixosModules.default
             ./hosts/chocolatecarrot/configuration.nix
             home-manager.nixosModules.home-manager
             {
@@ -44,11 +44,6 @@
       };
       darwinConfigurations = {
         caramelapple = nix-darwin.lib.darwinSystem {
-          system = "aarch64-darwin";
-          pkgs = import nixpkgs {
-            system = "aarch64-darwin";
-            config.allowUnfree = true;
-          };
           modules = [
             home-manager.darwinModules.home-manager
             {

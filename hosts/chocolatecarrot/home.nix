@@ -64,7 +64,6 @@ in
     obsidian
     spotify
     discord
-    claude-code
     # apps
     chromium
     # dependency for brightness/audio

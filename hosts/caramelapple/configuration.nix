@@ -1,6 +1,7 @@
 { config, pkgs, ... }:
 {
   nixpkgs.config.allowUnfree = true;
+  nixpkgs.hostPlatform = "aarch64-darwin";
 
   networking.hostName = "caramelapple";
   networking.localHostName = "caramelapple";
@@ -16,12 +17,17 @@
     "/opt/homebrew/sbin"
   ];
 
+  environment.systemPackages = with pkgs; [
+    wireguard-tools
+  ];
+
   homebrew = {
     enable = true;
     onActivation = {
       cleanup = "zap";
       autoUpdate = true;
       upgrade = true;
+      extraFlags = [ "--force-cleanup" ];
     };
     brews = [
       "sccache"
@@ -29,12 +35,15 @@
       "podman"
     ];
     casks = [
+      "wezterm@nightly"
+      "nikitabobko/tap/aerospace"
       "anki"
       "nordvpn"
       "codex"
       "slack"
       "beekeeper-studio"
       "blender"
+      "darktable"
       "gimp"
       "maccy"
       "orbstack"
@@ -43,6 +52,7 @@
       "spotify"
       "discord"
       "signal"
+      "telegram"
     ];
   };
 }
