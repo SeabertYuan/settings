@@ -311,6 +311,7 @@
     ffmpeg
     i2c-tools
     man-pages
+    wireguard-tools
 
     ## virtualisation
     # python312Packages.click
