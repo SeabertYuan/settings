@@ -101,6 +101,8 @@
 
   age.secrets.wg-key-chocolatecarrot = {
     file = ../../secrets/wg-key-chocolatecarrot.age;
+    path = "/run/wireguard/wg-key-chocolatecarrot";
+    symlink = false;
     owner = "systemd-network";
     group = "systemd-network";
     mode = "0400";
