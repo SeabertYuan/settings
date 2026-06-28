@@ -1,28 +1,4 @@
-{ config, pkgs, ... }:
-let
-  obsidianSyncScript = pkgs.writeShellScriptBin "sync-obsidiansea" ''
-    #!/bin/sh
-
-    DATE="$(date +"%m.%d.%y")"
-
-    GITDIR="/home/seabert/Documents/ObsidianSea/"
-
-    git --git-dir=$GITDIR.git --work-tree=$GITDIR/ pull > /dev/null 2>&1
-
-    echo $DATE
-
-    IS_DIFF=$(git --git-dir=$GITDIR.git --work-tree=$GITDIR/ diff --name-only)
-
-    if ! [[ -z "$IS_DIFF" ]]; then
-      git --git-dir=$GITDIR.git --work-tree=$GITDIR/ add .
-      RES=$(git --git-dir=$GITDIR.git --work-tree=$GITDIR/ commit -m "$DATE")
-      RES+=$(git --git-dir=$GITDIR.git --work-tree=$GITDIR/ push)
-      notify-send "$RES"
-    else
-      notify-send "failed to sync changes"
-    fi
-  '';
-in
+{ pkgs, ... }:
 {
   imports = [
     ../../home/default.nix
@@ -79,36 +55,4 @@ in
     blender
     easyeffects # EQ
   ];
-
-  # some nice services
-  systemd.user = {
-    services = {
-      "sync-obsidiansea" = {
-        Unit = {
-          Description = "Synchronizes ObsidianSea";
-        };
-        Service = {
-          Type = "oneshot";
-          ExecStart = "${obsidianSyncScript}/bin/sync-obsidiansea.sh";
-          WorkingDirectory = config.home.homeDirectory;
-          StandardOutput = "journal";
-          StandardError = "journal";
-        };
-      };
-    };
-    timers = {
-      "sync-obsidiansea" = {
-        Unit = {
-          Description = "Sync ObsidianSea daily at 19:30PM Vancouver time (PT).";
-        };
-        Timer = {
-          OnCalendar = "*-*-* 19:30:00 Canada/Pacific";
-          Persistent = true;
-        };
-        Install = {
-          WantedBy = [ "timers.target" ];
-        };
-      };
-    };
-  };
 }

@@ -2,7 +2,7 @@
 # your system. Help is available in the configuration.nix(5) man page, on
 # https://search.nixos.org/options and in the NixOS manual (`nixos-help`).
 
-{ config, lib, pkgs, unstable, attrs, ... }:
+{ config, lib, pkgs, unstable, inputs, ... }:
 
 {
   imports =
@@ -11,7 +11,7 @@
     ];
   nix.settings.experimental-features = [ "nix-command" "flakes" ];
 
-  _module.args.unstable = import attrs.nixpkgs-unstable {
+  _module.args.unstable = import inputs.nixpkgs-unstable {
     inherit (pkgs.stdenv.hostPlatform) system;
     inherit (config.nixpkgs) config;
   };
@@ -105,6 +105,11 @@
     group = "systemd-network";
     mode = "0400";
   };
+  age.identityPaths = [
+    "/root/.ssh/id_ed25519"
+    "/etc/ssh/ssh_host_ed25519_key"
+    "/etc/ssh/ssh_host_rsa_key"
+  ];
 
 
   # Set your time zone.

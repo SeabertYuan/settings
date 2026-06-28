@@ -245,6 +245,12 @@
         "nix-darwin": "nix-darwin",
         "nixpkgs": "nixpkgs",
         "nixpkgs-unstable": "nixpkgs-unstable",
+        "vim_fugitive": "vim_fugitive",
+        "vim_fzf": "vim_fzf",
+        "vim_fzf_vim": "vim_fzf_vim",
+        "vim_seoul256": "vim_seoul256",
+        "vim_sleuth": "vim_sleuth",
+        "vim_vimtex": "vim_vimtex",
         "wezterm": "wezterm"
       }
     },
@@ -296,6 +302,108 @@
       "original": {
         "owner": "nix-systems",
         "repo": "default",
+        "type": "github"
+      }
+    },
+    "vim_fugitive": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1752614839,
+        "narHash": "sha256-u39oObHCXk8uew5HyVdV1Z69Viilv3B7x1SUJxYXYLo=",
+        "owner": "tpope",
+        "repo": "vim-fugitive",
+        "rev": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tpope",
+        "repo": "vim-fugitive",
+        "rev": "61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4",
+        "type": "github"
+      }
+    },
+    "vim_fzf": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1763290959,
+        "narHash": "sha256-P6jyKskc2jT6zMLAMxklN8e/630oWYT4bWim20IMKvo=",
+        "owner": "junegunn",
+        "repo": "fzf",
+        "rev": "2ab923f3ae04d5e915e5ff4a9cd3bd515bfd1ea5",
+        "type": "github"
+      },
+      "original": {
+        "owner": "junegunn",
+        "repo": "fzf",
+        "rev": "2ab923f3ae04d5e915e5ff4a9cd3bd515bfd1ea5",
+        "type": "github"
+      }
+    },
+    "vim_fzf_vim": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1765237753,
+        "narHash": "sha256-mlif2Y53XAVt7CaJzX6eaxhW9S6ZuhndrSPe9x54wx4=",
+        "owner": "junegunn",
+        "repo": "fzf.vim",
+        "rev": "ddc14a6a5471147e2a38e6b32a7268282f669b0a",
+        "type": "github"
+      },
+      "original": {
+        "owner": "junegunn",
+        "repo": "fzf.vim",
+        "rev": "ddc14a6a5471147e2a38e6b32a7268282f669b0a",
+        "type": "github"
+      }
+    },
+    "vim_seoul256": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1751422189,
+        "narHash": "sha256-bT4KvY4ezaaJyRDAJ4v3cv2twgw/Npb0rSKwsUKPCjk=",
+        "owner": "junegunn",
+        "repo": "seoul256.vim",
+        "rev": "d9a91d8d4e153274e1ecc0ceb05c37f0d0de84d7",
+        "type": "github"
+      },
+      "original": {
+        "owner": "junegunn",
+        "repo": "seoul256.vim",
+        "rev": "d9a91d8d4e153274e1ecc0ceb05c37f0d0de84d7",
+        "type": "github"
+      }
+    },
+    "vim_sleuth": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1726718493,
+        "narHash": "sha256-2Cr3h3uJvUL3CSoJs3aBFrkBeOBURSQItgQ4ep9sHXM=",
+        "owner": "tpope",
+        "repo": "vim-sleuth",
+        "rev": "be69bff86754b1aa5adcbb527d7fcd1635a84080",
+        "type": "github"
+      },
+      "original": {
+        "owner": "tpope",
+        "repo": "vim-sleuth",
+        "rev": "be69bff86754b1aa5adcbb527d7fcd1635a84080",
+        "type": "github"
+      }
+    },
+    "vim_vimtex": {
+      "flake": false,
+      "locked": {
+        "lastModified": 1758572013,
+        "narHash": "sha256-ErJoIuRlqZWr2jjfT/Bczc5bu2Bw1E6mbgk/cjvobsY=",
+        "owner": "lervag",
+        "repo": "vimtex",
+        "rev": "2e1bbabeb2c34bb17d7bc8cfdf8f95b16dd0db0c",
+        "type": "github"
+      },
+      "original": {
+        "owner": "lervag",
+        "repo": "vimtex",
+        "rev": "2e1bbabeb2c34bb17d7bc8cfdf8f95b16dd0db0c",
         "type": "github"
       }
     },

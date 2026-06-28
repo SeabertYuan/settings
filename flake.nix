@@ -12,6 +12,19 @@
     dotfiles.url = "path:./dotfiles";
     dotfiles.flake = false;
 
+    vim_seoul256.url = "github:junegunn/seoul256.vim?rev=d9a91d8d4e153274e1ecc0ceb05c37f0d0de84d7";
+    vim_seoul256.flake = false;
+    vim_fzf_vim.url = "github:junegunn/fzf.vim?rev=ddc14a6a5471147e2a38e6b32a7268282f669b0a";
+    vim_fzf_vim.flake = false;
+    vim_fzf.url = "github:junegunn/fzf?rev=2ab923f3ae04d5e915e5ff4a9cd3bd515bfd1ea5";
+    vim_fzf.flake = false;
+    vim_fugitive.url = "github:tpope/vim-fugitive?rev=61b51c09b7c9ce04e821f6cf76ea4f6f903e3cf4";
+    vim_fugitive.flake = false;
+    vim_vimtex.url = "github:lervag/vimtex?rev=2e1bbabeb2c34bb17d7bc8cfdf8f95b16dd0db0c";
+    vim_vimtex.flake = false;
+    vim_sleuth.url = "github:tpope/vim-sleuth?rev=be69bff86754b1aa5adcbb527d7fcd1635a84080";
+    vim_sleuth.flake = false;
+
     wezterm.url = "github:wezterm/wezterm?dir=nix";
 
     agenix.url = "github:ryantm/agenix";
