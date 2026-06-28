@@ -111,6 +111,7 @@
     "/etc/ssh/ssh_host_rsa_key"
   ];
 
+  system.activationScripts.agenixChown.deps = lib.mkAfter [ "agenixInstall" ];
 
   # Set your time zone.
   time.timeZone = "Canada/Pacific";
