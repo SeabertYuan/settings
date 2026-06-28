@@ -108,9 +108,7 @@
     mode = "0400";
   };
   age.identityPaths = [
-    "/root/.ssh/id_ed25519"
     "/etc/ssh/ssh_host_ed25519_key"
-    "/etc/ssh/ssh_host_rsa_key"
   ];
 
   system.activationScripts.agenixChown.deps = lib.mkAfter [ "agenixInstall" ];
