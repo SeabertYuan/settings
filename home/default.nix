@@ -43,7 +43,7 @@ in
 
         PS1='[\u@\h \W]\$ '
 
-        PATH="~/.cargo/bin:~/.local/bin:$PATH"
+        PATH="~/.cargo/bin:~/.local/bin:$HOME/.local/share/npm-global/bin:$PATH"
         PROMPT_COMMAND='echo -ne "\033]0;''${PWD##*/}\007"'
 
         # to allow yazi to exit into selected file path
@@ -168,8 +168,11 @@ in
         [net]
         git-fetch-with-cli = true
 
-        # [build]
-        # rustc-wrapper = "/opt/homebrew/bin/sccache"
+        [build]
+        rustc-wrapper = "/opt/homebrew/bin/sccache"
+      '';
+      ".npmrc".text = ''
+        prefix=${config.home.homeDirectory}/.local/share/npm-global
       '';
       # # Building this configuration will create a copy of 'dotfiles/screenrc' in
       # # the Nix store. Activating the configuration will then make '~/.screenrc' a

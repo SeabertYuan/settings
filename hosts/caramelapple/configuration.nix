@@ -19,6 +19,7 @@
 
   environment.systemPackages = with pkgs; [
     wireguard-tools
+    nodejs
   ];
 
   homebrew = {
@@ -31,15 +32,16 @@
     };
     brews = [
       "sccache"
-      "pi-coding-agent"
       "podman"
     ];
     casks = [
+      {
+        name = "nikitabobko/tap/aerospace@0.20.3";
+        trusted = true;
+      }
       "wezterm@nightly"
-      "nikitabobko/tap/aerospace"
       "anki"
       "nordvpn"
-      "codex"
       "slack"
       "beekeeper-studio"
       "blender"
@@ -53,6 +55,7 @@
       "discord"
       "signal"
       "telegram"
+      "mos"
     ];
   };
 }

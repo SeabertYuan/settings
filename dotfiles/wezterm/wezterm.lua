@@ -128,4 +128,6 @@ config.inactive_pane_hsb = {
   brightness = 0.5,
 }
 
+config.front_end = "WebGpu"
+
 return config
