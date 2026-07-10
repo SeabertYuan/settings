@@ -1,4 +1,4 @@
-{ config, pkgs, ... }:
+{ inputs, unstable, pkgs, ... }:
 {
   my.vim.package = pkgs.vim-full;
 
@@ -12,17 +12,17 @@
     nerd-fonts.jetbrains-mono
     source-sans
     source-serif
-  ] ++ pkgs.lib.optionals pkgs.stdenv.isLinux [
     # icon theme
     adwaita-icon-theme
     # unfree apps
     spotify
     discord
-    # apps
-    chromium
-    thunderbird
-    signal-desktop
+    # messaging
+    unstable.thunderbird
+    unstable.signal-desktop
+    # pdf
     zathura
+    # media
     mpv
   ];
 

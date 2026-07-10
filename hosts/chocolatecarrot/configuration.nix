@@ -196,12 +196,10 @@
     packages = with pkgs; [
       # TODO: this stuff is dependencies for stuff I need to move to home-manager
       # utilities
+      bc
       playerctl
       pavucontrol # I'm too dumb to figure out cmdline but i want to
       libnotify
-      fswatch # faster lsp
-      tectonic # latex
-      pplatex # better latex errors
       ddcutil # external monitor brightness
     ];
     openssh.authorizedKeys.keys = [

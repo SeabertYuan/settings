@@ -50,7 +50,12 @@
               home-manager.useGlobalPkgs= true;
               home-manager.useUserPackages = true;
               home-manager.users.seabert = import ./hosts/chocolatecarrot/home.nix;
-              home-manager.extraSpecialArgs = { inherit inputs; };
+              home-manager.extraSpecialArgs = {
+                inherit inputs;
+                unstable = import inputs.nixpkgs-unstable {
+                  system = "x86_64-linux";
+                };
+              };
             }
           ];
         };
@@ -95,7 +100,12 @@
             ./home/gui.nix
             ./home/default.nix
           ];
-          extraSpecialArgs = { inherit inputs; };
+          extraSpecialArgs = {
+            inherit inputs;
+            unstable = import inputs.nixpkgs-unstable {
+              system = "x86_64-linux";
+            };
+          };
         };
       };
     };

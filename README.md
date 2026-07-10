@@ -11,6 +11,6 @@ This is my personal system where I do a lot of experiments and random stuff. Her
     - [ ] possibly move to QuickShell, but only if I'm extremely bored
 - [ ] make a wiki of somesort for myself. I keep forgetting common commands/actions I did to fix things like networking/drivers etc. which I should keep better track of
 - [ ] clean up fstab/filesystems idk what is going on rn but it's not good
-- [ ] move entire sway/support scripts to this repo
+- [x] move entire sway/support scripts to this repo
 - [ ] clean up unused programs
 - [ ] clean up configuration file + document everything better
