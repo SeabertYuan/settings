@@ -1,4 +1,4 @@
-{ pkgs, ... }:
+{ inputs, pkgs, ... }:
 {
   imports = [
     ../../home/default.nix
@@ -55,4 +55,19 @@
     blender
     easyeffects # EQ
   ];
+
+  home.file = let inherit (inputs) dotfiles; in {
+    ".config/sway/resources/wallpaper.jpg".source = pkgs.fetchurl {
+      url = "https://pub-31e5e043a7bb4d65b3b5e1775518429c.r2.dev/host-resources/Kanagawa.jpg";
+      hash = "sha256-RKhIar3wMwo/5rWG5AdQbnOP4HX+C138Q5YeNY/acgY=";
+    };
+    ".config/sway/resources/wallpaper-blur.jpg".source = pkgs.fetchurl {
+      url = "https://pub-31e5e043a7bb4d65b3b5e1775518429c.r2.dev/host-resources/Kanagawa_blur.jpg";
+      hash = "sha256-Af6PTQsQN/xezcCyl+sKRTGiuyCtNpueIc4fkACq+rU=";
+    };
+    ".config/sway" = {
+      source = "${dotfiles}/sway";
+      recursive = true;
+    };
+  };
 }

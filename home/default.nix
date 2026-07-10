@@ -111,9 +111,6 @@ in
       ]
     else
       [
-        podman
-        claude-code
-        codex
         config.my.vim.package
       ]
     );
