@@ -26,6 +26,8 @@
     # apps
     chromium
     anki
+    # widgets
+    eww
     # media
     qimgv
     obs-studio

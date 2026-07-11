@@ -115,6 +115,14 @@ config.mouse_bindings = {
 config.unix_domains = {
   { name = 'unix' },
 }
+config.ssh_domains = {
+  {
+    name = "chococarrot",
+    remote_address = "10.100.0.1",
+    username = "seabert",
+    multiplexing = "WezTerm",
+  },
+}
 
 config.color_scheme = 'Seoul256 (Gogh)'
 
