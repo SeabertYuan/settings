@@ -359,17 +359,17 @@
     "vim_seoul256": {
       "flake": false,
       "locked": {
-        "lastModified": 1751422189,
-        "narHash": "sha256-bT4KvY4ezaaJyRDAJ4v3cv2twgw/Npb0rSKwsUKPCjk=",
-        "owner": "junegunn",
+        "lastModified": 1784068255,
+        "narHash": "sha256-TEu6ybYthrtTd7k2HkQEEH1z2iImU0I6SEclt87oAGQ=",
+        "owner": "SeabertYuan",
         "repo": "seoul256.vim",
-        "rev": "d9a91d8d4e153274e1ecc0ceb05c37f0d0de84d7",
+        "rev": "4e37d7700af80e8aa37be3d6bc02d0f17a0a498a",
         "type": "github"
       },
       "original": {
-        "owner": "junegunn",
+        "owner": "SeabertYuan",
         "repo": "seoul256.vim",
-        "rev": "d9a91d8d4e153274e1ecc0ceb05c37f0d0de84d7",
+        "rev": "4e37d7700af80e8aa37be3d6bc02d0f17a0a498a",
         "type": "github"
       }
     },

@@ -32,7 +32,6 @@
     };
     brews = [
       "sccache"
-      "podman"
     ];
     casks = [
       {
@@ -49,13 +48,12 @@
       "gimp"
       "maccy"
       "orbstack"
-      "podman-desktop"
       "thunderbird"
       "spotify"
       "discord"
       "signal"
       "telegram"
-      "mos"
+      "karabiner-elements"
     ];
   };
 }

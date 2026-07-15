@@ -12,7 +12,7 @@
     dotfiles.url = "path:./dotfiles";
     dotfiles.flake = false;
 
-    vim_seoul256.url = "github:junegunn/seoul256.vim?rev=d9a91d8d4e153274e1ecc0ceb05c37f0d0de84d7";
+    vim_seoul256.url = "github:junegunn/seoul256.vim?rev=0357ff3e44faab66c98bc98dfc89c834e37012da";
     vim_seoul256.flake = false;
     vim_fzf_vim.url = "github:junegunn/fzf.vim?rev=ddc14a6a5471147e2a38e6b32a7268282f669b0a";
     vim_fzf_vim.flake = false;
