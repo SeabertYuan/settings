@@ -41,6 +41,8 @@ in
       initExtra = ''
         eval "$(fzf --bash)"
 
+        set -o vi
+
         PS1='[\u@\h \W]\$ '
 
         PATH="~/.cargo/bin:~/.local/bin:$HOME/.local/share/npm-global/bin:$PATH"
