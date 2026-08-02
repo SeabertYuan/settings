@@ -6,14 +6,14 @@
 
 ### Variables
 #
-# Logo key. Use Mod1 for Alt.
-set $mod Mod4
+# Logo key. Use Mod4 for Alt.
+set $mod Mod1
 
 # Home row direction keys, like vim
 set $left j
 set $down k
 set $up l
-set $right ;
+set $right semicolon
 
 # Your preferred terminal emulator (footclient for server mode)
 set $term wezterm cli spawn --new-window 2>/dev/null || wezterm start
