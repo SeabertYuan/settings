@@ -136,4 +136,13 @@ config.inactive_pane_hsb = {
   brightness = 0.5,
 }
 
+config.font_size = 7.9
+config.hide_tab_bar_if_only_one_tab = true
+config.use_fancy_tab_bar = false
+
+config.command_palette_font_size = 9.0
+
+-- needed for sway to prevent window issues
+config.adjust_window_size_when_changing_font_size = false
+
 return config
