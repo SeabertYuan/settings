@@ -137,10 +137,20 @@ config.inactive_pane_hsb = {
 }
 
 config.font_size = 7.9
-config.hide_tab_bar_if_only_one_tab = true
-config.use_fancy_tab_bar = false
-
 config.command_palette_font_size = 9.0
+config.window_frame = {
+  font_size = 7.5,
+}
+
+if wezterm.target_triple:find("apple") then
+  config.font_size = 11.0
+  config.command_palette_font_size = 10.0
+  config.window_frame = {
+    font_size = 9.0,
+  }
+end
+
+config.hide_tab_bar_if_only_one_tab = true
 
 -- needed for sway to prevent window issues
 config.adjust_window_size_when_changing_font_size = false
