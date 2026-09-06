@@ -136,7 +136,7 @@ config.inactive_pane_hsb = {
   brightness = 0.5,
 }
 
-config.font_size = 7.9
+config.font_size = 7.7
 config.command_palette_font_size = 9.0
 config.window_frame = {
   font_size = 7.5,

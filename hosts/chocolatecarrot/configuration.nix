@@ -209,6 +209,28 @@
 
   services.gnome.gnome-keyring.enable = true;
 
+  services.keyd = {
+    enable = true;
+    keyboards = {
+      default = {
+        ids = [ "*" ];
+        settings = {
+          main = {
+            capslock = "leftcontrol";
+            leftcontrol = "capslock";
+          };
+        };
+      };
+    };
+  };
+
+  documentation = {
+    enable = true;
+    man.enable = true;
+    dev.enable = true;
+    nixos.includeAllModules = true;
+  };
+
   security.polkit.enable = true;
 
   security.sudo.extraRules = [
@@ -310,6 +332,7 @@
     i2c-tools
     man-pages
     wireguard-tools
+    keyd
 
     ## virtualisation
     # python312Packages.click

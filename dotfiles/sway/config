@@ -6,8 +6,8 @@
 
 ### Variables
 #
-# Logo key. Use Mod4 for Alt.
-set $mod Mod1
+# Logo key. Use Mod1 for Alt.
+set $mod Mod4
 
 # Home row direction keys, like vim
 set $left j
@@ -82,7 +82,6 @@ input "1133:45108:Logitech_MX_Master_3S" {
 # keyboard
 input type:keyboard {
 	xkb_numlock enabled
-	xkb_options "ctrl:swapcaps, altwin:swap_lalt_lwin"
     repeat_delay 230
 }
 
