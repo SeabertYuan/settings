@@ -50,6 +50,11 @@ config.leader = {
 
 config.keys = {
   {
+    key = 's',
+    mods = 'CTRL|SHIFT',
+    action = act.ActivateCopyMode,
+  },
+  {
     key = 'h',
     mods = 'CTRL|SHIFT',
     action = act.ActivatePaneDirection 'Left',
