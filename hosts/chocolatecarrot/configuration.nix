@@ -16,10 +16,41 @@
     inherit (config.nixpkgs) config;
   };
 
-  # opengl
   hardware = {
-    graphics.enable = true;
+    graphics = {
+      enable = true;
+    };
+
+    bluetooth = {
+      enable = true;
+      powerOnBoot = true;
+    };
+    
+    nvidia = {
+      open = false;                    # Pascal has no GSP; open modules cannot work
+      package = config.boot.kernelPackages.nvidiaPackages.legacy_580;
+      modesetting.enable = true;       # required for sync and for Wayland
+
+      powerManagement.enable = true;   # suspend/resume VRAM handling
+      powerManagement.finegrained = false;   # Turing+ only, breaks resume on Pascal
+
+      nvidiaSettings = true;
+
+      prime = {
+        sync.enable = true;
+        intelBusId  = "PCI:0:2:0";
+        nvidiaBusId = "PCI:1:0:0";
+      };
+    };
   };
+
+  services.xserver = {
+    enable = true;
+    videoDrivers = [ "nvidia" ];   # "nvidia" only, no "modesetting"
+    windowManager.i3.enable = true;
+    displayManager.startx.enable = true;
+  };
+
 
   # Use the systemd-boot EFI boot loader.
   boot.loader.systemd-boot.enable = true;
@@ -119,9 +150,6 @@
   # Configure network proxy if necessary
   # networking.proxy.default = "http://user:password@proxy:port/";
   # networking.proxy.noProxy = "127.0.0.1,localhost,internal.domain";
-
-  hardware.bluetooth.enable = true;
-  hardware.bluetooth.powerOnBoot = true;
 
   # Select internationalisation properties.
   # i18n.defaultLocale = "en_US.UTF-8";
@@ -269,6 +297,7 @@
     environment = {
       WAYLAND_DISPLAY="wayland-1";
       DISPLAY = ":0";
+      WLR_DRM_DEVICES = "/dev/dri/by-path/pci-0000:01:00.0-card";
     };
     serviceConfig = {
       Type = "simple";

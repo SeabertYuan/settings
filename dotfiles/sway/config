@@ -16,7 +16,7 @@ set $up l
 set $right semicolon
 
 # Your preferred terminal emulator (footclient for server mode)
-set $term wezterm cli spawn --new-window 2>/dev/null || wezterm start
+set $term wezterm
 # Your preferred application launcher
 # Note: pass the final command to swaymsg so that the resulting window can be opened
 # on the original workspace that the command was run on.

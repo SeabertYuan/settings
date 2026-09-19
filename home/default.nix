@@ -114,6 +114,7 @@ in
     else
       [
         config.my.vim.package
+        sccache
       ]
     );
 
@@ -162,13 +163,12 @@ in
         recursive = true;
         force = true;
       };
-      # TODO: don't hardcode this to homebrew lmao
       ".cargo/config.toml".text = ''
         [net]
         git-fetch-with-cli = true
 
         [build]
-        rustc-wrapper = "/opt/homebrew/bin/sccache"
+        rustc-wrapper = "${if pkgs.stdenv.isDarwin then "/opt/homebrew/bin/sccache" else lib.getExe pkgs.sccache}"
       '';
       ".npmrc".text = ''
         prefix=${config.home.homeDirectory}/.local/share/npm-global
