@@ -49,6 +49,8 @@
     videoDrivers = [ "nvidia" ];   # "nvidia" only, no "modesetting"
     windowManager.i3.enable = true;
     displayManager.startx.enable = true;
+    autoRepeatDelay = 230;
+    autoRepeatInterval = 40; # matches sway's default repeat_rate of 25/s
   };
 
 
@@ -195,8 +197,6 @@
   services.printing.enable = true;
 
   # Enable sound.
-  # hardware.pulseaudio.enable = true;
-  # OR
   security.rtkit.enable = true;
 
   services.pipewire = {
@@ -215,6 +215,8 @@
 
   # Enable touchpad support (enabled default in most desktopManager).
   services.libinput.enable = true;
+  services.libinput.touchpad.naturalScrolling = true;
+  services.libinput.mouse.naturalScrolling = false; # regular scroll
 
   # Define a user account. Don't forget to set a password with ‘passwd’.
   users.users.seabert = {
@@ -362,6 +364,8 @@
     man-pages
     wireguard-tools
     keyd
+    dunst
+    pulseaudio # pactl/pacmd/paplay client tools; talks to pipewire-pulse
 
     ## virtualisation
     # python312Packages.click

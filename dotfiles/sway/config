@@ -227,10 +227,10 @@ bindsym $mod+r mode "resize"
 # Media
 #
 #volume
-bindsym Xf86AudioRaiseVolume exec amixer set Master 5%+
-bindsym Xf86AudioLowerVolume exec amixer set Master 5%-
-bindsym Xf86AudioMute exec amixer set Master toggle
-bindsym Xf86AudioMicMute exec amixer set Capture toggle
+bindsym Xf86AudioRaiseVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%+
+bindsym Xf86AudioLowerVolume exec wpctl set-volume @DEFAULT_AUDIO_SINK@ 5%-
+bindsym Xf86AudioMute exec wpctl set-mute @DEFAULT_AUDIO_SINK@ toggle
+bindsym Xf86AudioMicMute exec wpctl set-mute @DEFAULT_AUDIO_SOURCE@ toggle
 # play/pause/skip
 bindsym Xf86AudioPause exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause
 bindsym Xf86AudioPlay exec dbus-send --print-reply --dest=org.mpris.MediaPlayer2.spotify /org/mpris/MediaPlayer2 org.mpris.MediaPlayer2.Player.PlayPause

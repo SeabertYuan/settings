@@ -50,5 +50,15 @@
       source = "${dotfiles}/sway";
       recursive = true;
     };
+    ".config/i3" = {
+      source = "${dotfiles}/i3";
+      recursive = true;
+      force = true;
+    };
+    ".config/dunst" = {
+      source = "${dotfiles}/dunst";
+      recursive = true;
+      force = true;
+    };
   };
 }
