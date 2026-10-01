@@ -47,7 +47,17 @@
   services.xserver = {
     enable = true;
     videoDrivers = [ "nvidia" ];   # "nvidia" only, no "modesetting"
-    windowManager.i3.enable = true;
+    windowManager.i3 = {
+      enable = true;
+      extraPackages = with pkgs; [
+        dmenu
+        i3status
+        xss-lock
+        #clipboard
+        maim
+        xclip
+      ];
+    };
     displayManager.startx.enable = true;
     autoRepeatDelay = 230;
     autoRepeatInterval = 40; # matches sway's default repeat_rate of 25/s
@@ -129,6 +139,7 @@
       PasswordAuthentication = false;
       KbdInteractiveAuthentication = false;
       PermitRootLogin = "no";
+      X11Forwarding = true;
     };
   };
 
