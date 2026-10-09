@@ -128,6 +128,11 @@
           # RouteTable in wireguardConfig will then be ignored.
           # RouteTable = 1000;
         }
+        {
+          # phone wg conf
+          PublicKey = "W/CiqbatXA6Ko6ETFOSxERQsTERDm2KiCPZpGPqklF0=";
+          AllowedIPs = [ "10.100.0.3/32" ];
+        }
       ];
     };
   };
@@ -377,6 +382,7 @@
     keyd
     dunst
     pulseaudio # pactl/pacmd/paplay client tools; talks to pipewire-pulse
+    xpra # remote X sessions; attach over ssh (wg0) rather than xpra's own tcp listener
 
     ## virtualisation
     # python312Packages.click

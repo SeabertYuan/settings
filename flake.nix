@@ -25,7 +25,7 @@
     vim_sleuth.url = "github:tpope/vim-sleuth?rev=be69bff86754b1aa5adcbb527d7fcd1635a84080";
     vim_sleuth.flake = false;
 
-    wezterm.url = "github:wezterm/wezterm?dir=nix";
+    wezterm.url = "github:ZergRocks/wezterm/f851433157c6ffd88d8e2edd72bbc64122b154be?dir=nix";
 
     agenix.url = "github:ryantm/agenix";
     agenix.inputs.nixpkgs.follows = "nixpkgs";
