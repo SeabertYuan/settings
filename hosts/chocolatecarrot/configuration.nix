@@ -224,7 +224,6 @@
 	  "bluez5.enable-sbc-xq" = true;
 	  "bluez5.enable-msbc" = true;
 	  "bluez5.enable-hw-volume" = true;
-	  "bluez5.roles" = [ "hsp_hs" "hsp_ag" "hfp_hf" "hfp_ag" ];
       };
     };
   };
@@ -250,6 +249,7 @@
     ];
     openssh.authorizedKeys.keys = [
       "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEI6uHkTas/JiM7YNAGBfXbUSpiVZEM5N7qXv2WSQVMc seabert@Seaberts-MacBook-Pro.local"
+      "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIACGLwqffzDaAu+J0xEDd10rBwEP9oiUxtJLEs5NklHx phone"
     ];
   };
 
@@ -345,7 +345,11 @@
     ];
   };
 
-  programs.thunderbird.enable = true;
+  programs.thunderbird = {
+    enable = true;
+    # sway runs at scale 1; shrink content to match i3's effective 75 DPI (75/96)
+    preferences."layout.css.devPixelsPerPx" = "0.78";
+  };
   programs.firefox.enable = true;
 
   programs.vim = {

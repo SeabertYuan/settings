@@ -2,11 +2,11 @@
   description = "Nixos Config";
 
   inputs = {
-    nixpkgs-unstable.url = "github:nixos/nixpkgs?ref=nixos-unstable";
-    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-26.05";
-    home-manager.url = "github:nix-community/home-manager/release-26.05";
+    nixpkgs.url = "github:nixos/nixpkgs?ref=nixos-unstable";
+    nixpkgs-unstable.follows = "nixpkgs";
+    home-manager.url = "github:nix-community/home-manager";
     home-manager.inputs.nixpkgs.follows = "nixpkgs";
-    nix-darwin.url = "github:LnL7/nix-darwin/nix-darwin-26.05";
+    nix-darwin.url = "github:LnL7/nix-darwin";
     nix-darwin.inputs.nixpkgs.follows = "nixpkgs";
 
     dotfiles.url = "path:./dotfiles";

@@ -14,10 +14,13 @@
 
   programs.firefox = {
     enable = true;
+    configPath = ".mozilla/firefox";
     profiles.default = {
       settings = {
         "network.protocol-handler.external.spotify" = true;
         "network.protocol-handler.warn-external.spotify" = false;
+        # sway runs at scale 1; shrink content to match i3's effective 75 DPI (75/96)
+        "layout.css.devPixelsPerPx" = "0.78";
       };
     };
   };

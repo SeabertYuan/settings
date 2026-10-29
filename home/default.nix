@@ -104,7 +104,7 @@ in
       neovim
       tree-sitter
     ]
-    ++ (if pkgs.stdenv.isDarwin then
+    ++ (if pkgs.stdenv.hostPlatform.isDarwin then
       [
         (vim-full.override {
           guiSupport = false;
@@ -168,7 +168,7 @@ in
         git-fetch-with-cli = true
 
         [build]
-        rustc-wrapper = "${if pkgs.stdenv.isDarwin then "/opt/homebrew/bin/sccache" else lib.getExe pkgs.sccache}"
+        rustc-wrapper = "${if pkgs.stdenv.hostPlatform.isDarwin then "/opt/homebrew/bin/sccache" else lib.getExe pkgs.sccache}"
       '';
       ".npmrc".text = ''
         prefix=${config.home.homeDirectory}/.local/share/npm-global

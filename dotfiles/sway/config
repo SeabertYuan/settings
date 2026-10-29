@@ -30,6 +30,9 @@ set $menu dmenu_path | wmenu | xargs swaymsg exec --
 ### Output configuration
 # wallpaper
 output * bg ./resources/wallpaper.jpg fill
+# integer scale so clients render straight onto real pixels; apps shrink their own
+# content by 0.78 to match i3's effective 75 DPI (75/96)
+output * scale 1
 
 #
 # Example configuration:
@@ -276,6 +279,10 @@ for_window [shell="xwayland"] title_format "[XWayland] %title"
 # floating zoom
 for_window [app_id="zoom" title="^zoom$"] border none, floating enable
 for_window [title="^zoom$" class="[zoom]*"] floating enable
+
+# sway auto-floats xdg toplevels with a parent or a fixed size; tile these like i3 does
+for_window [app_id="firefox" title="^Picture-in-Picture$"] floating disable
+for_window [app_id="firefox" title="^Extension: "] floating disable
 
 # disable primary selection
 primary_selection disabled

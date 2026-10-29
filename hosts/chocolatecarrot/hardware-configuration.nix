@@ -40,11 +40,13 @@
     {
       device = "/dev/disk/by-uuid/30607D59607D272E";
       fsType = "ntfs-3g";
+      options = [ "rw" "uid=1000" "gid=100" "dmask=022" "fmask=133" ];
     };
   fileSystems."/home/seabert/windows" =
     {
       device = "/dev/disk/by-uuid/902AC2362AC218DC";
       fsType = "ntfs-3g";
+      options = [ "rw" "uid=1000" "gid=100" "dmask=022" "fmask=133" ];
     };
 
   swapDevices = [ ];
